@@ -1,8 +1,7 @@
 package com.example.hank.myappdemo.mapView;
 
-import android.app.Activity;
 
-import com.baidu.location.LocationClient;
+import com.baidu.location.BDLocation;
 import com.example.hank.myappdemo.mapModel.LocationBean;
 import com.example.hank.myappdemo.model.MyLocationListener;
 
@@ -31,5 +30,5 @@ public interface ILocationView {
     /**
      * 获取定位信息数据成功
      */
-    void getLocationDataSuccess();
+    void getLocationDataSuccess(BDLocation location);
 }

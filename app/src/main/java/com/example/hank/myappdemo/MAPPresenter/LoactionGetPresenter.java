@@ -2,6 +2,7 @@ package com.example.hank.myappdemo.mapPresenter;
 
 import android.os.Handler;
 
+import com.baidu.location.BDLocation;
 import com.example.hank.myappdemo.mapModel.ILocationBean;
 import com.example.hank.myappdemo.mapModel.LocationBean;
 import com.example.hank.myappdemo.mapModel.LocationBeanBiz;
@@ -43,8 +44,8 @@ public class LoactionGetPresenter {
         locationBean.getLocationData(locationView.getMyLocationListener(), new
                 OnLocationDataListener() {
             @Override
-            public void getLocationDataSuccess() {
-                locationView.getLocationDataSuccess();
+            public void getLocationDataSuccess(BDLocation location) {
+                locationView.getLocationDataSuccess(location);
             }
         });
     }

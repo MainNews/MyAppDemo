@@ -34,8 +34,14 @@
         android:id="@+id/baidu_home_activity_tv_map"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1"
 
         />
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/baidu_home_activity_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>

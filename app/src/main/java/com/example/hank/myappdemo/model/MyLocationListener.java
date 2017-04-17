@@ -11,6 +11,8 @@ import com.baidu.location.BDLocationListener;
 public class MyLocationListener implements BDLocationListener {
     StringBuilder currentPostition;
     OnMyLocationListener onMyLocationListener;
+
+
     @Override
     public void onReceiveLocation(BDLocation location) {
         currentPostition = new StringBuilder();
@@ -35,22 +37,29 @@ public class MyLocationListener implements BDLocationListener {
         } else {
             currentPostition.append("wifi");
         }
-        if (onMyLocationListener != null){
-            onMyLocationListener.onGetDateSuccess();
+
+        if (location.getLocType() == BDLocation.TypeGpsLocation || location.getLocType() ==
+                BDLocation.TypeNetWorkLocation) {
+            if (onMyLocationListener != null) {
+                onMyLocationListener.onGetDateSuccess(location);
+            }
         }
+
     }
-    public StringBuilder getCurrentPostition(){
-        return  currentPostition;
+    public StringBuilder getCurrentPostition() {
+        return currentPostition;
     }
 
     @Override
     public void onConnectHotSpotMessage(String s, int i) {
 
     }
-    public interface OnMyLocationListener{
-        void onGetDateSuccess();
+
+    public interface OnMyLocationListener {
+        void onGetDateSuccess(BDLocation location);
     }
-    public void setOnLocationListener(OnMyLocationListener onMyLocationListener){
+
+    public void setOnLocationListener(OnMyLocationListener onMyLocationListener) {
         this.onMyLocationListener = onMyLocationListener;
     }
 }
