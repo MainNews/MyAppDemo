@@ -1,58 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:id="@+id/activity_main"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/baidu_home_activity_map_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <EditText
-            android:hint="请输入搜索关键字"
+        android:layout_height="wrap_content"
+        android:background="@drawable/baidu_home_activity_search_bckg"
+        android:layout_margin="10dp">
+
+        <TextView
             android:id="@+id/baidu_home_activity_ed_search_for"
             android:gravity="center"
+            android:text="搜地点、查公交、找路线"
             android:padding="@dimen/dp_6"
-            app:layout_widthPercent="80%"
-            app:layout_heightPercent="10%"/>
-        <Button
-            android:layout_toRightOf="@id/baidu_home_activity_ed_search_for"
-            android:id="@+id/baidu_home_activity_but_search_for"
-            app:layout_widthPercent="20%"
+            android:textSize="16sp"
+            android:textColor="#ACACAC"
             app:layout_heightPercent="10%"
+            app:layout_widthPercent="80%"/>
+
+        <Button
+            android:id="@+id/baidu_home_activity_but_search_for"
+            android:layout_toRightOf="@id/baidu_home_activity_ed_search_for"
             android:gravity="center"
-            android:text="搜索"
             android:padding="@dimen/dp_6"
-            android:textSize="@dimen/sp_18"
+            android:text="退出"
             android:textColor="#333333"
+            android:textSize="@dimen/sp_18"
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="20%"
             />
     </android.support.percent.PercentRelativeLayout>
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <com.baidu.mapapi.map.MapView
-            android:id="@+id/baidu_home_activity_map_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal">
-            <Button
-                android:id="@+id/baidu_home_activity_map_but_i"
-                android:layout_alignParentBottom="true"
+        <Button
+            android:id="@+id/baidu_home_activity_map_but_i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:padding="2dp"
+            android:text="我的位置"
+            android:textSize="12sp"
+            />
+    </RelativeLayout>
+
+    <android.support.percent.PercentRelativeLayout
+        android:id="@+id/baidu_home_activity_search_poi_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#e7e7e7">
+        <LinearLayout
+            app:layout_heightPercent="10%"
+            app:layout_widthPercent="100%"
+            android:gravity="center_vertical"
+            android:background="@drawable/baidu_home_activity_search_bckg"
+            android:id="@+id/linearLayout">
+            <ImageView
+                android:id="@+id/baidu_home_activity_search_exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:text="我的位置"
-                android:textSize="12sp"
-                android:padding="2dp"
+                android:layout_marginLeft="8dp"
+                android:background="@drawable/skin_centerback_btn"
+                android:padding="10dp"
                 />
+            <EditText
+                android:id="@+id/baidu_home_activity_search_poi_text"
+                android:layout_width="match_parent"
+                android:hint="搜索"
+                android:layout_height="match_parent"
+                android:background="@drawable/baidu_home_activity_search_bckg_img"
+                android:layout_margin="8dp"/>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/mListView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true">
 
-
-        </RelativeLayout>
-    </FrameLayout>
-</LinearLayout>
+        </ListView>
+    </android.support.percent.PercentRelativeLayout>
+</FrameLayout>

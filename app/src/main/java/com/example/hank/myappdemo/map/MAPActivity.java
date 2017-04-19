@@ -4,11 +4,17 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,21 +34,24 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.Overlay;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCodeResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
-import com.baidu.mapapi.search.route.BikingRouteResult;
-import com.baidu.mapapi.search.route.DrivingRouteResult;
-import com.baidu.mapapi.search.route.IndoorRouteResult;
-import com.baidu.mapapi.search.route.MassTransitRouteResult;
-import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
+import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiDetailResult;
+import com.baidu.mapapi.search.poi.PoiIndoorResult;
+import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.baidu.mapapi.search.poi.PoiResult;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
-import com.baidu.mapapi.search.route.TransitRouteResult;
-import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.base.BaseActivtiy;
+import com.example.hank.myappdemo.map.adapter.SearchPoiAdapter;
+import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.PoiOverlay;
 import com.example.hank.myappdemo.map.mapModel.LocationBean;
 import com.example.hank.myappdemo.map.mapPresenter.LoactionGetPresenter;
 import com.example.hank.myappdemo.map.mapView.ILocationView;
@@ -57,24 +66,34 @@ import butterknife.OnClick;
 
 /**
  * Created by Jun on 2017/4/17.
+ * 展示百度地图
  */
 
-public class MAPActivity extends AppCompatActivity implements ILocationView {
+public class MAPActivity extends BaseActivtiy implements ILocationView {
     @Bind(R.id.baidu_home_activity_map_view)
     MapView baiduHomeActivityMapView;
     @Bind(R.id.baidu_home_activity_map_but_i)
     Button baiduHomeActivityMapButI;
+    @Bind(R.id.baidu_home_activity_search_poi_layout)
+    PercentRelativeLayout baiduHomeActivitySearchPoiLayout;
+    @Bind(R.id.mListView)
+    ListView mListView;
+    @Bind(R.id.baidu_home_activity_search_poi_text)
+    EditText baiduHomeActivitySearchPoiText;
+
+    private List<PoiInfo> poiList = new ArrayList<>();
 
     private BaiduMap baiduMap;
     private boolean isFirstLocate = true;
     private LocationClient mLocationClient;
     private MyLocationListener myLocationListener;
 
+    private LatLng presentLocation;
+
     private GeoCoder geoCoder;
-
     private RoutePlanSearch mSearch;
-
     private BDLocation mBDLocation;
+    private PoiSearch poiSearch;
 
     private LoactionGetPresenter loactionGetPresenter = new LoactionGetPresenter(this);
 
@@ -126,35 +145,43 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
 
         //初始化搜索模块，注册监听事件
         mSearch = RoutePlanSearch.newInstance();
-        mSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
+
+        //创建搜索对象（兴趣搜索）
+        poiSearch = PoiSearch.newInstance();
+
+        initChangedListener();
+    }
+
+    private void initChangedListener() {
+        baiduHomeActivitySearchPoiText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
 
             @Override
-            public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
+            public void afterTextChanged(Editable editable) {
+                if (editable.length() != 0) {
+                    //发起POI搜索
+                    PoiNearbySearchOption option = new PoiNearbySearchOption();
+                    option.keyword(baiduHomeActivitySearchPoiText.getText().toString());//搜索的关键字
+                    option.location(presentLocation);//设置搜索的中心点
+                    option.radius(2000);//设置搜索半径，这里设定为附近2公里
+                    poiSearch.searchNearby(option);
 
-            }
+                    SearchPoiAdapter searchPoiAdapter = new SearchPoiAdapter(MAPActivity.this, R
+                            .layout
+                            .map_search_poi_list_item, poiList);
+                    mListView.setAdapter(searchPoiAdapter);
 
-            @Override
-            public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
-
-            }
-
-            @Override
-            public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
-
-            }
-
-            @Override
-            public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
-
+                } else {
+                    baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
+                }
             }
         });
     }
@@ -174,17 +201,24 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
     /**
      * 添加标注
      */
+
+    private void addMacker(LatLng latLng) {
+        addMacker(latLng, null);
+    }
+
     private void addMacker(LatLng latLng, LocationBean locationBean) {
+        baiduMap.hideInfoWindow();
+        baiduMap.clear();
         MarkerOptions mMarkerOptions = new MarkerOptions();
         mMarkerOptions.position(latLng);//标注显示的位置
         BitmapDescriptor mBitmapDescriptor = BitmapDescriptorFactory.fromResource(R.drawable
                 .icon_mark);
         mMarkerOptions.icon(mBitmapDescriptor);//标注显示的图片
-        mMarkerOptions.title(locationBean.getLoaction());
+        if (locationBean != null) {
+            mMarkerOptions.title(locationBean.getLoaction());
+        }
         mMarkerOptions.draggable(true);//支持长按拖动位置
         Overlay overlay = baiduMap.addOverlay(mMarkerOptions);
-
-
     }
 
     /**
@@ -219,7 +253,7 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
         if (mBDLocation == null) {
             mBDLocation = location;
         }
-        navigateTo(locationBean);
+        navigateTo(locationBean,null);
     }
 
     @Override
@@ -231,8 +265,13 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
     /**
      * 显示位置信息
      */
-    private void navigateTo(LocationBean locationBean) {
-        LatLng latLng = new LatLng(locationBean.getLatitude(), locationBean.getLongitude());
+    private void navigateTo(LocationBean locationBean, LatLng location) {
+        LatLng latLng = null;
+        if (location == null ) {
+            latLng = new LatLng(locationBean.getLatitude(), locationBean.getLongitude());
+        }else {
+            latLng = location;
+        }
         if (isFirstLocate) {
             initMapListener();
             MapStatusUpdate update = MapStatusUpdateFactory.newLatLng(latLng);
@@ -240,8 +279,7 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
             update = MapStatusUpdateFactory.zoomTo(16f);//让地图信息显示更加丰富，取值在3~19之间
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;//只在第一次调用时定位到当前位置
-            // addCircleOption(latLng);
-            //addTextOption(locationBean);
+            presentLocation = latLng;
             addMacker(latLng, locationBean);
         }
         //使用百度地图自带当前位置图标
@@ -274,8 +312,8 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
              */
             @Override
             public void onMapClick(LatLng latLng) {
-                //隐藏弹出窗口
-                baiduMap.hideInfoWindow();
+                //添加覆盖物
+                addMacker(latLng);
             }
 
             /**
@@ -293,7 +331,6 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
         baiduMap.setOnMarkerDragListener(new BaiduMap.OnMarkerDragListener() {
             @Override//正在拖动
             public void onMarkerDrag(Marker marker) {
-
             }
 
             @Override//结束拖动
@@ -306,7 +343,46 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
             public void onMarkerDragStart(Marker marker) {
             }
         });
+        //注册监听器，接收搜索结果
+        poiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
+            @Override//返回多条数据（列表数据）
+            public void onGetPoiResult(PoiResult poiResult) {
+                if (poiResult != null || poiResult.error != PoiResult.ERRORNO.RESULT_NOT_FOUND) {
+                    poiList = (poiResult.getAllPoi());
+                }
+            }
 
+            @Override//搜索某一条数据的详情
+            public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
+            }
+
+            @Override
+            public void onGetPoiIndoorResult(PoiIndoorResult poiIndoorResult) {
+            }
+        });
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                PoiInfo poiInfo = poiList.get(position);
+                addMacker(poiInfo.location);
+                isFirstLocate = true;
+                navigateTo(null,poiInfo.location);
+                baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /**
+     * 在地图上显示搜索结果
+     *
+     * @param poiResult
+     */
+    private void showSearchDatas(PoiResult poiResult) {
+        PoiOverlay overlay = new PoiOverlay(baiduMap);
+        overlay.setData(poiResult);
+        overlay.addToMap();
+        overlay.zoomToSpan();//给地图进行缩放，看到所显示的覆盖物
     }
 
     /**
@@ -335,7 +411,9 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
         }
     }
 
-    @OnClick({R.id.baidu_home_activity_map_view,R.id.baidu_home_activity_map_but_i})
+    @OnClick({R.id.baidu_home_activity_map_view, R.id.baidu_home_activity_map_but_i, R.id
+            .baidu_home_activity_ed_search_for, R.id.baidu_home_activity_search_poi_text,
+            R.id.baidu_home_activity_search_exit, R.id.baidu_home_activity_but_search_for})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.baidu_home_activity_map_view:
@@ -346,6 +424,20 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
                 baiduMap.hideInfoWindow();
                 isFirstLocate = true;//在一次定位到当前位置
                 break;
+            case R.id.baidu_home_activity_ed_search_for:
+                baiduHomeActivitySearchPoiLayout.setVisibility(View.VISIBLE);
+                break;
+            case R.id.baidu_home_activity_search_poi_text://点击搜索POI关键字
+
+
+                break;
+            case R.id.baidu_home_activity_search_exit://隐藏搜索
+                baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
+                break;
+            case R.id.baidu_home_activity_but_search_for://退出当前界面
+                finish();
+                break;
+
         }
     }
 
@@ -390,6 +482,18 @@ public class MAPActivity extends AppCompatActivity implements ILocationView {
         super.onDestroy();
         mLocationClient.stop();
         baiduHomeActivityMapView.onDestroy();
+        //销毁搜索对象
+        poiSearch.destroy();
 //        baiduMap.setMyLocationEnabled(false);
+    }
+
+    private Toast mToast = null;
+
+    private void showToast(String msg) {
+        if (mToast == null) {
+            mToast = Toast.makeText(this, msg, Toast.LENGTH_SHORT);
+        }
+        mToast.setText(msg);
+        mToast.show();
     }
 }
