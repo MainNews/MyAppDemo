@@ -65,11 +65,13 @@
             app:layout_heightPercent="10%"
             app:layout_widthPercent="100%"
             android:gravity="center_vertical"
+            android:orientation="horizontal"
             android:background="@drawable/baidu_home_activity_search_bckg"
             android:id="@+id/linearLayout">
             <ImageView
                 android:id="@+id/baidu_home_activity_search_exit"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:background="@drawable/skin_centerback_btn"
@@ -77,11 +79,22 @@
                 />
             <EditText
                 android:id="@+id/baidu_home_activity_search_poi_text"
-                android:layout_width="match_parent"
-                android:hint="搜索"
+                android:layout_width="0dp"
+                android:layout_weight="8"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:background="@drawable/baidu_home_activity_search_bckg_img"
+                android:hint="搜索"
                 android:layout_margin="8dp"/>
+            <ImageView
+                android:id="@+id/baidu_home_activity_search"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/round"
+                android:padding="10dp"
+                />
         </LinearLayout>
         <ListView
             android:id="@+id/mListView"

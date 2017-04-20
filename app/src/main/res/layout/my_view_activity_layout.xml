@@ -3,30 +3,28 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
     <Button
-        android:id="@+id/home_map"
+        android:id="@+id/my_view_animation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="进入地图界面"
+        android:text="进入动画界面"
         android:padding="6dp"
         android:textSize="16sp"
         />
     <Button
-        android:id="@+id/home_my_view"
+        android:id="@+id/my_view_paint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="进入自定义View界面"
+        android:text="进入绘图界面"
         android:padding="6dp"
         android:textSize="16sp"
         />
     <Button
-        android:id="@+id/home_test"
+        android:id="@+id/my_view_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="进入测试界面"
+        android:text="进入视图界面"
         android:padding="6dp"
         android:textSize="16sp"
         />
-
 </LinearLayout>

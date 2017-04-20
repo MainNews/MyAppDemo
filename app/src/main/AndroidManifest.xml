@@ -29,8 +29,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- 百度地图的展示界面 -->
         <activity android:name=".map.MAPActivity"/>
+        <!-- 测试代码的展示界面 -->
         <activity android:name=".test.TestActivity"/>
+        <!-- 自定义View的展示界面-->
+        <activity android:name=".mveiw.MyViewActivity"/>
+            <!-- 自定义View动画编，基础应用（一） -->
+            <activity android:name=".mveiw.animation.Alpha_Scale_Translate_Rotate_Set"/>
 
 
         <service android:name="com.baidu.location.f"

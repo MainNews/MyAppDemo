@@ -3,14 +3,18 @@ package com.example.hank.myappdemo.map;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,6 +34,7 @@ import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MapViewLayoutParams;
 import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.Overlay;
@@ -42,6 +47,7 @@ import com.baidu.mapapi.search.geocode.OnGetGeoCoderResultListener;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeOption;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
@@ -84,17 +90,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     private List<PoiInfo> poiList = new ArrayList<>();
 
     private BaiduMap baiduMap;
+    /** 用于判断是否进行定位到指定的经纬度 */
     private boolean isFirstLocate = true;
     private LocationClient mLocationClient;
     private MyLocationListener myLocationListener;
-
+    private SearchPoiAdapter searchPoiAdapter;
     private LatLng presentLocation;
-
     private GeoCoder geoCoder;
     private RoutePlanSearch mSearch;
     private BDLocation mBDLocation;
     private PoiSearch poiSearch;
-
     private LoactionGetPresenter loactionGetPresenter = new LoactionGetPresenter(this);
 
     @Override
@@ -104,6 +109,8 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         myLocationListener = new MyLocationListener();
         mLocationClient.registerLocationListener(myLocationListener);
         SDKInitializer.initialize(getApplicationContext());
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
@@ -148,6 +155,9 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
 
         //创建搜索对象（兴趣搜索）
         poiSearch = PoiSearch.newInstance();
+        //添适配器
+        searchPoiAdapter = new SearchPoiAdapter(poiList);
+        mListView.setAdapter(searchPoiAdapter);
 
         initChangedListener();
     }
@@ -166,24 +176,61 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                handler.removeCallbacksAndMessages(null);
                 if (editable.length() != 0) {
-                    //发起POI搜索
-                    PoiNearbySearchOption option = new PoiNearbySearchOption();
-                    option.keyword(baiduHomeActivitySearchPoiText.getText().toString());//搜索的关键字
-                    option.location(presentLocation);//设置搜索的中心点
-                    option.radius(2000);//设置搜索半径，这里设定为附近2公里
-                    poiSearch.searchNearby(option);
-
-                    SearchPoiAdapter searchPoiAdapter = new SearchPoiAdapter(MAPActivity.this, R
-                            .layout
-                            .map_search_poi_list_item, poiList);
-                    mListView.setAdapter(searchPoiAdapter);
-
-                } else {
-                    baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
+                    /**
+                     * 发送信息，加载搜索数据
+                     */
+                    Message message = new Message();
+                    message.what = 101;
+                    handler.sendMessage(message);
                 }
             }
         });
+    }
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 101:
+                    //发起搜索Poi结果
+                    showSearchPoi();
+                    break;
+            }
+        }
+    };
+
+    /**
+     * 发起搜索Poi结果（范围搜索）
+     */
+    private void showSearchPoi() {
+        //发起POI搜索
+        PoiNearbySearchOption option = new PoiNearbySearchOption();
+        String locationKeyword = baiduHomeActivitySearchPoiText.getText().toString();
+        if (locationKeyword.isEmpty() || locationKeyword.equals("")) {
+            showToast("没有找到相应的结果");
+        } else {
+            option.keyword(locationKeyword);//搜索的关键字
+            option.location(presentLocation);//设置搜索的中心点
+            option.radius(2000);//设置搜索半径，这里设定为附近2公里
+            poiSearch.searchNearby(option);
+        }
+    }
+
+    /**
+     * 全城搜索
+     */
+    private void showParticularsSearchPoi() {
+        //发起POI搜索
+        PoiCitySearchOption option = new PoiCitySearchOption();
+        String locationKeyword = baiduHomeActivitySearchPoiText.getText().toString();
+        if (locationKeyword.isEmpty() || locationKeyword.equals("")) {
+            showToast("没有找到相应的结果");
+        } else {
+            option.city("广州");//搜索城市
+            option.keyword(locationKeyword);//搜索的关键字
+            poiSearch.searchInCity(option);
+        }
     }
 
     @Override
@@ -253,7 +300,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         if (mBDLocation == null) {
             mBDLocation = location;
         }
-        navigateTo(locationBean,null);
+        navigateTo(locationBean, null);
     }
 
     @Override
@@ -266,10 +313,10 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      * 显示位置信息
      */
     private void navigateTo(LocationBean locationBean, LatLng location) {
-        LatLng latLng = null;
-        if (location == null ) {
+        LatLng latLng;
+        if (location == null) {
             latLng = new LatLng(locationBean.getLatitude(), locationBean.getLongitude());
-        }else {
+        } else {
             latLng = location;
         }
         if (isFirstLocate) {
@@ -349,6 +396,13 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             public void onGetPoiResult(PoiResult poiResult) {
                 if (poiResult != null || poiResult.error != PoiResult.ERRORNO.RESULT_NOT_FOUND) {
                     poiList = (poiResult.getAllPoi());
+                    if ( poiList != null) {
+                        searchPoiAdapter.setPoiInfosList(poiList);
+                    }
+                }
+                if (isFirstLocate) {
+                    showSearchDatas(poiResult);
+                    showDatasInMap(poiResult);
                 }
             }
 
@@ -367,22 +421,56 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                 PoiInfo poiInfo = poiList.get(position);
                 addMacker(poiInfo.location);
                 isFirstLocate = true;
-                navigateTo(null,poiInfo.location);
+                navigateTo(null, poiInfo.location);
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
             }
         });
     }
 
     /**
-     * 在地图上显示搜索结果
+     * 在地图上显示所有搜索结果
      *
      * @param poiResult
      */
     private void showSearchDatas(PoiResult poiResult) {
-        PoiOverlay overlay = new PoiOverlay(baiduMap);
+        PoiOverlay overlay = new PoiOverlay(baiduMap) {
+            @Override
+            public boolean onPoiClick(int position) {
+                return super.onPoiClick(position);
+            }
+        };
+        //设置搜索覆盖物点击事件
+        baiduMap.setOnMarkerClickListener(overlay);
+        isFirstLocate = false;
+
         overlay.setData(poiResult);
         overlay.addToMap();
         overlay.zoomToSpan();//给地图进行缩放，看到所显示的覆盖物
+    }
+
+    /**
+     * 给搜索到的结果添加窗口，显示具体名称
+     */
+    private void showDatasInMap(PoiResult poiResult) {
+        List<PoiInfo> allPoi = poiResult.getAllPoi();
+        for (PoiInfo poiInfo : allPoi) {
+            TextView window = new TextView(this);
+            window.setText(poiInfo.name);
+            window.setGravity(Gravity.CENTER);
+            window.setBackgroundResource(R.drawable.popup_bg);
+
+            ViewGroup.LayoutParams param = new MapViewLayoutParams.Builder()
+                    .width(MapViewLayoutParams.WRAP_CONTENT)
+                    .height(MapViewLayoutParams.WRAP_CONTENT)
+                    //设置根据经纬度确定位置
+                    .layoutMode(MapViewLayoutParams.ELayoutMode.mapMode)
+                    .yOffset(-20)
+                    .position(poiInfo.location)
+                    .build();
+            baiduHomeActivityMapView.addView(window, param);
+        }
+
+
     }
 
     /**
@@ -412,8 +500,8 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     }
 
     @OnClick({R.id.baidu_home_activity_map_view, R.id.baidu_home_activity_map_but_i, R.id
-            .baidu_home_activity_ed_search_for, R.id.baidu_home_activity_search_poi_text,
-            R.id.baidu_home_activity_search_exit, R.id.baidu_home_activity_but_search_for})
+            .baidu_home_activity_ed_search_for, R.id.baidu_home_activity_search,
+            R.id.baidu_home_activity_search_exit, R.id.baidu_home_activity_but_search_for,})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.baidu_home_activity_map_view:
@@ -427,10 +515,13 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             case R.id.baidu_home_activity_ed_search_for:
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.VISIBLE);
                 break;
-            case R.id.baidu_home_activity_search_poi_text://点击搜索POI关键字
-
-
+            case R.id.baidu_home_activity_search://点击搜索POI关键字,POI结果
+                isFirstLocate = true;
+                showParticularsSearchPoi();
+                baiduHomeActivitySearchPoiText.setText("");
+                baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
                 break;
+
             case R.id.baidu_home_activity_search_exit://隐藏搜索
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
                 break;

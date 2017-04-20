@@ -1,39 +1,56 @@
 package com.example.hank.myappdemo.map.adapter;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.baidu.mapapi.map.Text;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.example.hank.myappdemo.R;
-import com.example.hank.myappdemo.map.bean.PoiBean;
-
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.baidu.mapapi.BMapManager.getContext;
 
 /**
  * Created by Jun on 2017/4/19.
  */
 
-public class SearchPoiAdapter extends ArrayAdapter<PoiInfo> {
-    private int resourceId;
-    public SearchPoiAdapter(Context context, int textViewResourceId, List<PoiInfo> objects) {
-        super(context, textViewResourceId, objects);
-        this.resourceId = textViewResourceId;
+public class SearchPoiAdapter extends BaseAdapter{
+
+    private List<PoiInfo> poiInfosList = new ArrayList<>();
+    public SearchPoiAdapter(List<PoiInfo> poiInfosList){
+        this.poiInfosList = poiInfosList;
+    }
+    public void setPoiInfosList(List<PoiInfo> poiInfosList){
+        this.poiInfosList = poiInfosList;
+        notifyDataSetChanged();
     }
 
+    @Override
+    public int getCount() {
+        return poiInfosList.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        return poiInfosList.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return 0;
+    }
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PoiInfo poiBean = getItem(position);//取得Bean实例
+        PoiInfo poiBean = (PoiInfo) getItem(position);//取得Bean实例
         View view;
         ViewHolder viewHolder;
         if (convertView == null) {
-            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
+            view = LayoutInflater.from(getContext()).inflate(R.layout.map_search_poi_list_item, parent, false);
             viewHolder = new ViewHolder();
             viewHolder.poiItemAddress = (TextView) view.findViewById(R.id.map_search_poi_item_address);
             viewHolder.poiItemName = (TextView) view.findViewById(R.id.map_search_poi_item_name);

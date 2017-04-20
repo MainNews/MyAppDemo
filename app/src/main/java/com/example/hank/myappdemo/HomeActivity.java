@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.hank.myappdemo.base.BaseActivtiy;
 import com.example.hank.myappdemo.map.MAPActivity;
+import com.example.hank.myappdemo.mveiw.MyViewActivity;
 import com.example.hank.myappdemo.test.TestActivity;
 
 import butterknife.Bind;
@@ -38,14 +39,15 @@ public class HomeActivity extends BaseActivtiy {
     @OnClick({R.id.home_map, R.id.home_my_view, R.id.home_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.home_map:
+            case R.id.home_map://地图
                 Intent startMap = new Intent(HomeActivity.this, MAPActivity.class);
                 startActivity(startMap);
                 break;
-            case R.id.home_my_view:
-
+            case R.id.home_my_view://自定义控件
+                Intent starView = new Intent(HomeActivity.this, MyViewActivity.class);
+                startActivity(starView);
                 break;
-            case R.id.home_test:
+            case R.id.home_test://测试
                 Intent starTest = new Intent(HomeActivity.this, TestActivity.class);
                 startActivity(starTest);
                 break;
