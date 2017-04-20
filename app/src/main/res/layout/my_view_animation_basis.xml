@@ -32,20 +32,27 @@
             android:text="rotate"
             android:textSize="14sp"
             />
-
         <Button
-            android:id="@+id/set"
+            android:id="@+id/translate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="set"
+            android:text="translate"
             android:textSize="14sp"
             />
     </LinearLayout>
+    <Button
+        android:id="@+id/set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="set"
+        android:textSize="14sp"
+        />
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="100dip"
         android:layout_height="200dip"
+        android:gravity="center"
         android:layout_gravity="center_horizontal"
         android:background="#ff00ff"
         android:text="hello_world"/>

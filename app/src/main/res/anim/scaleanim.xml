@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+scale 主要用于缩放动画
  fromXScale 与 toXScale 表示以x方向开始缩放，取值在 0.0 至 2.0 之间，
             0.5 代表起始时缩小一倍，2.0代表放大一倍，X 可以理解为宽
  fromYScale 与 toYScale 表示的意思与上面相同，Y 可以理解为高

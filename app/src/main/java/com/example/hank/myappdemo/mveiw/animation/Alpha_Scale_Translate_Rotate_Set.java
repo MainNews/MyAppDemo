@@ -32,6 +32,8 @@ public class Alpha_Scale_Translate_Rotate_Set extends BaseActivtiy {
     Button set;
     @Bind(R.id.tv)
     TextView tv;
+    @Bind(R.id.translate)
+    Button translate;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,19 +42,29 @@ public class Alpha_Scale_Translate_Rotate_Set extends BaseActivtiy {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.alpha, R.id.scale, R.id.rotate, R.id.set})
+    @OnClick({R.id.alpha, R.id.scale, R.id.rotate, R.id.translate,R.id.set})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.alpha:
+                startAnimation(R.anim.alpha_anim);
                 break;
             case R.id.scale:
-                Animation animation = AnimationUtils.loadAnimation(this, R.anim.scaleanim);
-                tv.startAnimation(animation);
+                startAnimation(R.anim.scaleanim);
                 break;
             case R.id.rotate:
+                startAnimation(R.anim.rotate_anim);
+                break;
+            case R.id.translate:
+                startAnimation(R.anim.translate_anim);
                 break;
             case R.id.set:
+                startAnimation(R.anim.set_anim);
                 break;
         }
+    }
+
+    private void startAnimation(int animationLayout) {
+        Animation animation = AnimationUtils.loadAnimation(this, animationLayout);
+        tv.startAnimation(animation);
     }
 }
