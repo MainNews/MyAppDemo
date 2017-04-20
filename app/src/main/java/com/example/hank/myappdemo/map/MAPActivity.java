@@ -416,6 +416,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                     if (poiList != null) {
                         searchPoiAdapter.setPoiInfosList(poiList);
                     }
+
                 }
                 if (isPoiLocation) {
                     handler.removeCallbacksAndMessages(null);
