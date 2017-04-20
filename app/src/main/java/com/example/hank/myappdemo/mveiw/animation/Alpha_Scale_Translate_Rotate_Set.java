@@ -56,6 +56,7 @@ public class Alpha_Scale_Translate_Rotate_Set extends BaseActivtiy {
                 break;
             case R.id.translate:
                 startAnimation(R.anim.translate_anim);
+
                 break;
             case R.id.set:
                 startAnimation(R.anim.set_anim);
