@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -90,7 +91,9 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     private List<PoiInfo> poiList = new ArrayList<>();
 
     private BaiduMap baiduMap;
-    /** 用于判断是否进行定位到指定的经纬度 */
+    /**
+     * 用于判断是否进行定位到指定的经纬度
+     */
     private boolean isFirstLocate = true;
     private LocationClient mLocationClient;
     private MyLocationListener myLocationListener;
@@ -110,9 +113,12 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         mLocationClient.registerLocationListener(myLocationListener);
         SDKInitializer.initialize(getApplicationContext());
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);//去除标题栏
 
         setContentView(R.layout.activity_main);
+        //隐藏标题栏
+        getSupportActionBar().hide();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
+                .LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
         //通知Presenter层让Model层去注册监听事件
         loactionGetPresenter.getLoactionData();
@@ -188,13 +194,19 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             }
         });
     }
-    private Handler handler = new Handler(){
+
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case 101:
                     //发起搜索Poi结果
                     showSearchPoi();
+                    break;
+                case 102://添加多个覆盖物
+                    PoiResult poiResult =  (PoiResult) msg.obj;
+                    showSearchDatas(poiResult);
+                    showDatasInMap(poiResult);
                     break;
             }
         }
@@ -254,6 +266,9 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     }
 
     private void addMacker(LatLng latLng, LocationBean locationBean) {
+        //清除已经显示的View
+        removeWindowView();
+
         baiduMap.hideInfoWindow();
         baiduMap.clear();
         MarkerOptions mMarkerOptions = new MarkerOptions();
@@ -360,6 +375,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
              */
             @Override
             public void onMapClick(LatLng latLng) {
+                removeWindowView();
                 //添加覆盖物
                 addMacker(latLng);
             }
@@ -397,13 +413,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             public void onGetPoiResult(PoiResult poiResult) {
                 if (poiResult != null || poiResult.error != PoiResult.ERRORNO.RESULT_NOT_FOUND) {
                     poiList = (poiResult.getAllPoi());
-                    if ( poiList != null) {
+                    if (poiList != null) {
                         searchPoiAdapter.setPoiInfosList(poiList);
                     }
                 }
-                if (isFirstLocate) {
-                    showSearchDatas(poiResult);
-                    showDatasInMap(poiResult);
+                if (isPoiLocation) {
+                    handler.removeCallbacksAndMessages(null);
+                    Message message = new Message();
+                    message.obj = poiResult;
+                    message.what = 102;
+                    handler.sendMessage(message);
                 }
             }
 
@@ -428,6 +447,15 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         });
     }
 
+    private void removeWindowView() {
+        if (windowViews.size() != 0) {
+            for (TextView params : windowViews) {
+                baiduHomeActivityMapView.removeView(params);
+            }
+        }
+    }
+    private boolean isPoiLocation = false;
+
     /**
      * 在地图上显示所有搜索结果
      *
@@ -442,7 +470,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         };
         //设置搜索覆盖物点击事件
         baiduMap.setOnMarkerClickListener(overlay);
-        isFirstLocate = false;
+        isPoiLocation = false;
 
         overlay.setData(poiResult);
         overlay.addToMap();
@@ -450,9 +478,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     }
 
     /**
+     * 用于删除添加的地址提示框
+     */
+    private List<TextView> windowViews = new ArrayList<>();
+
+    /**
      * 给搜索到的结果添加窗口，显示具体名称
      */
     private void showDatasInMap(PoiResult poiResult) {
+        //清除已经显示的View
+        removeWindowView();
         List<PoiInfo> allPoi = poiResult.getAllPoi();
         for (PoiInfo poiInfo : allPoi) {
             TextView window = new TextView(this);
@@ -468,6 +503,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                     .yOffset(-20)
                     .position(poiInfo.location)
                     .build();
+            windowViews.add(window);
             baiduHomeActivityMapView.addView(window, param);
         }
 
@@ -517,7 +553,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.VISIBLE);
                 break;
             case R.id.baidu_home_activity_search://点击搜索POI关键字,POI结果
-                isFirstLocate = true;
+                isPoiLocation = true;
                 showParticularsSearchPoi();
                 baiduHomeActivitySearchPoiText.setText("");
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
