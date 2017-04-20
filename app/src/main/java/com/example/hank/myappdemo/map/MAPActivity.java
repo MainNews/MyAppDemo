@@ -422,6 +422,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                     handler.removeCallbacksAndMessages(null);
                     Message message = new Message();
                     message.obj = poiResult;
+
                     message.what = 102;
                     handler.sendMessage(message);
                 }
