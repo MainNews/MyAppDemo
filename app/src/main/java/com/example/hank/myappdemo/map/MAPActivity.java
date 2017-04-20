@@ -353,6 +353,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
 
         //地图点击事件处理
         baiduMap.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+
             /**
              * 点击地图时回调该方法
              * @param latLng 当前位置，该对象根据指定的经纬度来得到
