@@ -11,16 +11,19 @@ import com.example.hank.myappdemo.map.mapModel.LocationBean;
  */
 
 public class MyLocationListener implements BDLocationListener {
-    private StringBuilder currentPostition;
     private OnMyLocationListener onMyLocationListener;
     private  LocationBean locationBean;
+
+    public MyLocationListener(OnMyLocationListener onMyLocationListener){
+        this.onMyLocationListener = onMyLocationListener;
+    }
 
     /**
      * 当用户同意所有权限后，开始获取定位数据
      */
     @Override
     public void onReceiveLocation(BDLocation location) {
-        currentPostition = new StringBuilder();
+        StringBuilder currentPostition = new StringBuilder();
         locationBean = new LocationBean();
             /*
                 通过location的getLatitude()与getLongitude()分别获取纬度与经度
@@ -30,12 +33,11 @@ public class MyLocationListener implements BDLocationListener {
         locationBean.setLongitude(location.getLongitude());
 
 //        currentPostition.append(location.getCountry());//国家
-        currentPostition.append(location.getProvince());
-        currentPostition.append(location.getCity());
+        locationBean.setProvince(location.getProvince());//省
+        locationBean.setCity(location.getCity());//市
         currentPostition.append(location.getDistrict());
         currentPostition.append(location.getStreet());
         locationBean.setLoaction(currentPostition.toString());
-        currentPostition = null;
 
         if (location.getLocType() == BDLocation.TypeGpsLocation) {
             locationBean.setLoactionMode("GPS");

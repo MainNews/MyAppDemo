@@ -10,6 +10,15 @@ public class LocationBean {
     private double latitude;// 纬度
     private String loaction;// 详细位置
     private String loactionMode;// 定位方式
+    private String province;//省
+    private String city;//市
+
+    public String getProvince() {
+        return province;
+    }
+    public String getCity() {
+        return city;
+    }
 
     public double getLongitude() {
         return longitude;
@@ -41,5 +50,13 @@ public class LocationBean {
 
     public void setLoactionMode(String loactionMode) {
         this.loactionMode = loactionMode;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
