@@ -30,7 +30,7 @@ import java.util.List;
  * 处理百度地图数据
  */
 
-public class LocationBeanBiz implements  IMapClass {
+public class LocationBeanBiz implements  IMapClass{
     private LocationBean bizLocationBean;
 
     private Handler handler = new Handler() {

@@ -57,4 +57,11 @@ public interface ILocationView {
      * 城市搜索失败
      */
     void showParticularsSearchPoiError();
+
+    /**
+     * 显示路线
+     */
+    void showTransitRoutLine(int position);
+    void showWailkingRoutLine(int position);
+    void showDrivingRoutLine(int position);
 }

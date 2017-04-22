@@ -1,42 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingBottom="0dip" >
+              android:id="@+id/user_info"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="20dip"
+              android:layout_weight="1"
+              android:background="@drawable/popup_bg"
+              android:gravity="center_vertical"
+              android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/user_info"
+    <ImageView
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dip"
-        android:layout_weight="1"
-        android:background="@drawable/popup_bg"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginBottom="2dip"
+        android:padding="5dp"
+        android:src="@drawable/icon_st"/>
 
-        <ImageView
-            android:id="@+id/round"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="2dip"
-            android:src="@drawable/round" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:ellipsize="end"
+        android:text="标题"
+        android:textSize="12sp"/>
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:ellipsize="end"
-            android:text="标题"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:id="@+id/roads"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/roads" />
-    </LinearLayout>
-
+    <ImageView
+        android:id="@+id/end"
+        android:padding="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_en"/>
 </LinearLayout>
