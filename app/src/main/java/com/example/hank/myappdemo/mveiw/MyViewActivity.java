@@ -10,6 +10,7 @@ import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.base.BaseActivtiy;
 import com.example.hank.myappdemo.mveiw.animation.Alpha_Scale_Translate_Rotate_Set;
 import com.example.hank.myappdemo.mveiw.animation.ViewAnimationDemo;
+import com.example.hank.myappdemo.mveiw.draw.DrawViewStepActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,6 +46,9 @@ public class MyViewActivity extends BaseActivtiy {
                 startActivity(startAnimation);
                 break;
             case R.id.my_view_paint:
+                Intent startDraw = new Intent(MyViewActivity.this,
+                        DrawViewStepActivity.class);
+                startActivity(startDraw);
                 break;
             case R.id.my_view_group:
                 break;
