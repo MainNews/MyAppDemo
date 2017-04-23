@@ -23,6 +23,7 @@ import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
@@ -39,6 +40,7 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
@@ -100,12 +102,12 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     ListView mListView;
     @Bind(R.id.baidu_home_activity_search_poi_layout)
     PercentRelativeLayout baiduHomeActivitySearchPoiLayout;
-    @Bind(R.id.map_route_line_tabhost)
-    FragmentTabHost mapRouteLineTabhost;
     @Bind(R.id.map_rout_line_fragment)
     FrameLayout mapRoutLineFragment;
     @Bind(R.id.map_tabhost_layout)
     LinearLayout mapTabhostLayout;
+    @Bind(R.id.map_route_line_tabhost)
+    FragmentTabHost mapRouteLineTabhost;
     private List<PoiInfo> poiList = new ArrayList<>();
     /**
      * 记录开始位置
@@ -222,6 +224,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      * 记录路线耗时，以“秒为单位”
      */
     ArrayList<Integer> routeLinerDurationList = new ArrayList<>();
+
     /**
      * 初始化标签
      */
@@ -241,6 +244,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
 
     @Override
     public void showDatasSearcInmapList(List<PoiInfo> poiList) {
+        this.poiList = poiList;
         searchPoiAdapter.setPoiInfosList(poiList);
     }
 
@@ -391,6 +395,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;//只在第一次调用时定位到当前位置
             addMacker(latLng, locationBean);
+            startLatLng =latLng;
         }
         //使用百度地图自带当前位置图标
         /*MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
@@ -612,7 +617,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      */
     private void addFragmentDatas(String fragmentTag, ArrayList<Integer> routeLineDistanceList,
                                   ArrayList<Integer> routeLinerDurationList) {
-        BaseFragment fragment = (BaseFragment) getChildFragmentManager().findFragmentByTag
+        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag
                 (fragmentTag);
         fragment.setAdapterDatas(routeLineDistanceList, routeLinerDurationList);
     }

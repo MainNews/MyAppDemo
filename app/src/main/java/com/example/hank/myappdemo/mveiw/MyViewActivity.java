@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.base.BaseActivtiy;
 import com.example.hank.myappdemo.mveiw.animation.Alpha_Scale_Translate_Rotate_Set;
+import com.example.hank.myappdemo.mveiw.animation.ViewAnimationDemo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,7 +41,7 @@ public class MyViewActivity extends BaseActivtiy {
         switch (view.getId()) {
             case R.id.my_view_animation:
                 Intent startAnimation = new Intent(MyViewActivity.this,
-                        Alpha_Scale_Translate_Rotate_Set.class);
+                        ViewAnimationDemo.class);
                 startActivity(startAnimation);
                 break;
             case R.id.my_view_paint:

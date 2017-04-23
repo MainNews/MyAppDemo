@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              android:id="@+id/activity_main"
              android:layout_width="match_parent"
@@ -12,6 +12,7 @@
     <android.support.percent.PercentRelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:background="@drawable/baidu_home_activity_search_bckg"
         android:layout_margin="10dp">
 
@@ -119,12 +120,12 @@
         </ListView>
     </android.support.percent.PercentRelativeLayout>
     <LinearLayout
-                  android:id="@+id/map_tabhost_layout"
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:orientation="vertical"
-                  android:visibility="gone">
-        <android.support.v13.app.FragmentTabHost
+        android:id="@+id/map_tabhost_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone">
+        <android.support.v4.app.FragmentTabHost
             android:id="@+id/map_route_line_tabhost"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -135,4 +136,5 @@
             android:layout_weight="1">
         </FrameLayout>
     </LinearLayout>
-</FrameLayout>
+
+</RelativeLayout>

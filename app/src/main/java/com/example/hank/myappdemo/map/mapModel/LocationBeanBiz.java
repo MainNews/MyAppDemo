@@ -61,6 +61,7 @@ public class LocationBeanBiz implements  IMapClass{
             @Override
             public void onGetDateSuccess(LocationBean locationBean, BDLocation location) {
                 //当得到数据后，返回给P层，请P层通知V进入处理操作
+                bizLocationBean = locationBean;
                 onLocationDataListener.getLocationDataSuccess(locationBean, location);
             }
         });
@@ -74,13 +75,13 @@ public class LocationBeanBiz implements  IMapClass{
     @Override
     public void showSearchPoi(String locationKeyword, OnShowSearchPoiListener
             mShowSearchPoiListener) {
+        handler.removeCallbacksAndMessages(null);
         Message message = new Message();
         message.what = 101;
         message.obj = mShowSearchPoiListener;
         Bundle data = new Bundle();
         data.putString("Keyword", locationKeyword);
         message.setData(data);
-        handler.removeCallbacksAndMessages(null);
         handler.sendMessage(message);
     }
 
