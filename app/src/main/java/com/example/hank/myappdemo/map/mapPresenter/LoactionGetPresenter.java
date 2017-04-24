@@ -112,28 +112,6 @@ public class LoactionGetPresenter {
             }
         });
     }
-
-    /**
-     * 点击条目，通知View去显示路线
-     * @param position 点击条目的角标
-     */
-    public void showTransitRoutLine(int position) {
-        locationView.showTransitRoutLine(position);
-    }
-    /**
-     * 点击条目，通知View去显示路线
-     * @param position 点击条目的角标
-     */
-    public void showWailkingRoutLine(int position) {
-        locationView.showWailkingRoutLine(position);
-    } /**
-     * 点击条目，通知View去显示路线
-     * @param position 点击条目的角标
-     */
-    public void showDrivingRoutLine(int position) {
-        locationView.showDrivingRoutLine(position);
-    }
-
     /**
      * 清除引用
      */

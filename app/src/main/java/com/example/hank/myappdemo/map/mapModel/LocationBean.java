@@ -1,11 +1,13 @@
 package com.example.hank.myappdemo.map.mapModel;
 
+import java.io.Serializable;
+
 /**
  * Created by Jun on 2017/4/16.
  * 定位所需要的数据
  */
 
-public class LocationBean {
+public class LocationBean implements Serializable {
     private double longitude;// 经度
     private double latitude;// 纬度
     private String loaction;// 详细位置

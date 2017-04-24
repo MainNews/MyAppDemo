@@ -10,6 +10,8 @@
         android:layout_width="0dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="3dp"
+        android:gravity="center"
         android:padding="5dp"
         android:focusable="true"
         android:background="@drawable/map_tabhost_selector"

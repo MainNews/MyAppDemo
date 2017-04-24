@@ -31,12 +31,11 @@
             </intent-filter>
         </activity>
         <!-- 百度地图的展示界面 -->
-        <activity android:name=".map.base.BaseActivity"/>
-        <!-- 百度地图的展示界面 -->
         <activity android:name=".map.MAPActivity"/>
+        <!-- 百度地图的展示界面 -->
+        <activity android:name=".map.MAPPathActivity"/>
         <!-- 测试代码的展示界面 -->
         <activity android:name=".test.TestActivity"/>
-
         <!-- 自定义View的展示界面-->
         <activity android:name=".mveiw.MyViewActivity"/>
         <!-- 自定义View动画篇，基础应用（一） -->
