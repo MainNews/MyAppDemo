@@ -31,6 +31,8 @@
             </intent-filter>
         </activity>
         <!-- 百度地图的展示界面 -->
+        <activity android:name=".map.base.BaseActivity"/>
+        <!-- 百度地图的展示界面 -->
         <activity android:name=".map.MAPActivity"/>
         <!-- 测试代码的展示界面 -->
         <activity android:name=".test.TestActivity"/>

@@ -25,7 +25,7 @@ public class TransitFragment  extends BaseFragment{
     private ListView listView;
     private Mydapter mydapter;
     private MAPActivity mapActivity;
-
+    private View mViewContent;//缓存视图
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,19 +35,32 @@ public class TransitFragment  extends BaseFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.map_rout_result_list_layout, container, false);
-        listView = (ListView) view.findViewById(android.R.id.list);
+        if (mViewContent == null){
+            mViewContent = inflater.inflate(R.layout.map_rout_result_list_layout, container, false);
+        }
+        // 缓存View判断是否含有parent, 如果有需要从parent删除, 否则发生已有parent的错误.
+        ViewGroup parent = (ViewGroup) mViewContent.getParent();
+        if (parent != null) {
+            parent.removeView(mViewContent);
+        }
+        listView = (ListView) mViewContent.findViewById(android.R.id.list);
+        return mViewContent;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         mydapter = new Mydapter();
         listView.setAdapter(mydapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        LoactionGetPresenter loactionGetPresenter = mapActivity.getLocationGetPresenter();
-                        loactionGetPresenter.showTransitRoutLine(position);
+                LoactionGetPresenter loactionGetPresenter = mapActivity.getLocationGetPresenter();
+                loactionGetPresenter.showTransitRoutLine(position);
             }
         });
-        return view;
     }
+
     /**
      * 设置数据
      */

@@ -1,6 +1,5 @@
 package com.example.hank.myappdemo.map.fragment;
 
-import android.support.v4.app.Fragment;
 
 import com.example.hank.myappdemo.map.base.BaseFragment;
 
@@ -10,9 +9,9 @@ import com.example.hank.myappdemo.map.base.BaseFragment;
  *
  */
 public enum MainTab {
-	TAB_NEWS(1,"自驾","driving",DrivingFragment.class),
-	TAB_TWEEN(2,"公交","transit",TransitFragment.class),
-	TAB_YOU(3,"步行","wailking",WailkingFragment.class);
+	DRIVING(1,"自驾","DRIVING",DrivingFragment.class),
+	TRANSIT(2,"公交","TRANSIT",TransitFragment.class),
+	WAILKING(3,"步行","WAILKING",WailkingFragment.class);
 	private MainTab(int id, String title, String tag,
 			Class<? extends BaseFragment> clz) {
 		this.id = id;

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -17,7 +20,6 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -40,7 +42,6 @@ import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
-import com.baidu.mapapi.search.core.SearchResult;
 import com.baidu.mapapi.search.geocode.GeoCoder;
 import com.baidu.mapapi.search.geocode.ReverseGeoCodeResult;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
@@ -52,6 +53,7 @@ import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.route.BikingRouteResult;
 import com.baidu.mapapi.search.route.DrivingRouteLine;
+import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
 import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.IndoorRouteResult;
 import com.baidu.mapapi.search.route.MassTransitRouteResult;
@@ -61,10 +63,8 @@ import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteLine;
 import com.baidu.mapapi.search.route.TransitRouteResult;
 import com.baidu.mapapi.search.route.WalkingRouteLine;
-import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.example.hank.myappdemo.R;
-import com.example.hank.myappdemo.base.BaseActivtiy;
 import com.example.hank.myappdemo.map.adapter.SearchPoiAdapter;
 import com.example.hank.myappdemo.map.base.BaseFragment;
 import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
@@ -88,7 +88,7 @@ import butterknife.OnClick;
  * 展示百度地图
  */
 
-public class MAPActivity extends BaseActivtiy implements ILocationView {
+public class MAPActivity extends FragmentActivity implements ILocationView {
 
     @Bind(R.id.baidu_home_activity_map_view)
     MapView baiduHomeActivityMapView;
@@ -102,12 +102,10 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
     ListView mListView;
     @Bind(R.id.baidu_home_activity_search_poi_layout)
     PercentRelativeLayout baiduHomeActivitySearchPoiLayout;
-    @Bind(R.id.map_rout_line_fragment)
-    FrameLayout mapRoutLineFragment;
     @Bind(R.id.map_tabhost_layout)
     LinearLayout mapTabhostLayout;
-    @Bind(R.id.map_route_line_tabhost)
-    FragmentTabHost mapRouteLineTabhost;
+    @Bind(android.R.id.tabhost)
+    FragmentTabHost tabhost;
     private List<PoiInfo> poiList = new ArrayList<>();
     /**
      * 记录开始位置
@@ -140,10 +138,9 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         mLocationClient = new LocationClient(getApplicationContext());
         /** 初始化Map中的对象 */
         loactionGetPresenter.initMapClassMember(getApplicationContext(), mLocationClient);
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON, WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         //隐藏标题栏
-        getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
                 .LayoutParams.FLAG_FULLSCREEN);
         ButterKnife.bind(this);
@@ -186,7 +183,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         //添适配器
         searchPoiAdapter = new SearchPoiAdapter(poiList);
         mListView.setAdapter(searchPoiAdapter);
-        mapRouteLineTabhost.setup(this, getSupportFragmentManager(), R.id.map_rout_line_fragment);
+        tabhost.setup(this, getSupportFragmentManager(), R.id.flt_realcontent);
         initTab();
         initChangedListener();
     }
@@ -224,22 +221,48 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      * 记录路线耗时，以“秒为单位”
      */
     ArrayList<Integer> routeLinerDurationList = new ArrayList<>();
-
+    private View indicator = null;
     /**
      * 初始化标签
      */
     private void initTab() {
+        // 添加tab名称和图标
+        /*indicator = getIndicatorView("步行", R.layout.test_indicator);
+        Bundle argsWailking = new Bundle();
+        argsWailking.putIntegerArrayList("Distance", routeLineDistanceList);
+        argsWailking.putIntegerArrayList("Duation", routeLinerDurationList);
+        tabhost.addTab(tabhost.newTabSpec("WAILKING")
+                .setIndicator(indicator), WailkingFragment.class, argsWailking);
+
+        indicator = getIndicatorView("自驾", R.layout.test_indicator);
+        Bundle argsDriving = new Bundle();
+        argsDriving.putIntegerArrayList("Distance", routeLineDistanceList);
+        argsDriving.putIntegerArrayList("Duation", routeLinerDurationList);
+        tabhost.addTab(
+                tabhost.newTabSpec("DRIVING").setIndicator(indicator),
+                DrivingFragment.class, argsDriving);
+
+        indicator = getIndicatorView("公交", R.layout.test_indicator);
+        Bundle argsTransit = new Bundle();
+        argsTransit.putIntegerArrayList("Distance", routeLineDistanceList);
+        argsTransit.putIntegerArrayList("Duation", routeLinerDurationList);
+        tabhost.addTab(tabhost.newTabSpec("TRANSIT").setIndicator(indicator),
+                TransitFragment.class, argsTransit);*/
+
         MainTab[] values = MainTab.values();
         for (int i = 0; i < values.length; i++) {
             MainTab mainTab = values[i];
-            TabHost.TabSpec tabSpec = mapRouteLineTabhost.newTabSpec(mainTab.getTag());
-            tabSpec.setIndicator(mainTab.getTitle());
-            Bundle args = new Bundle();
-            args.putIntegerArrayList("Distance", routeLineDistanceList);
-            args.putIntegerArrayList("Duation", routeLinerDurationList);
-            args.putString("name", mainTab.getTitle());
-            mapRouteLineTabhost.addTab(tabSpec, mainTab.getClz(), args);
+            String tag = mainTab.getTag();
+            TabHost.TabSpec tabSpec = tabhost.newTabSpec(tag);//添加标识Tag
+            tabSpec.setIndicator(getIndicatorView(mainTab.getTitle(), R.layout.test_indicator));//添加标签
+            tabhost.addTab(tabSpec, mainTab.getClz(), null);
         }
+    }
+    private View getIndicatorView(String name, int layoutId) {
+        View v = getLayoutInflater().inflate(layoutId, null);
+        TextView tv = (TextView) v.findViewById(R.id.tabText);
+        tv.setText(name);
+        return v;
     }
 
     @Override
@@ -395,7 +418,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
             baiduMap.animateMapStatus(update);
             isFirstLocate = false;//只在第一次调用时定位到当前位置
             addMacker(latLng, locationBean);
-            startLatLng =latLng;
+            startLatLng = latLng;
         }
         //使用百度地图自带当前位置图标
         /*MyLocationData.Builder locationBuilder = new MyLocationData.Builder();
@@ -534,14 +557,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                         .ERRORNO.RESULT_NOT_FOUND) {
                     showToast("没有搜索结果");
                 } else {
-                    routeLineDistanceList.clear();
-                    routeLinerDurationList.clear();
+                    /** 记录路线长度，以“米”为单位  */
+                    ArrayList<Integer> routeLineDistanceListWailk = new ArrayList<>();
+                    /** 记录路线耗时，以“秒为单位”*/
+                    ArrayList<Integer> routeLinerDurationListWailk = new ArrayList<>();
                     walkList = walkingRouteResult.getRouteLines();
                     for (WalkingRouteLine routeLine : walkList) {
-                        routeLineDistanceList.add(routeLine.getDistance());
-                        routeLinerDurationList.add(routeLine.getDuration());
+                        routeLineDistanceListWailk.add(routeLine.getDistance());
+                        routeLinerDurationListWailk.add(routeLine.getDuration());
                     }
-                    addFragmentDatas("wailking", routeLineDistanceList, routeLinerDurationList);
+                    addFragmentDatas("WAILKING", routeLineDistanceListWailk, routeLinerDurationListWailk);
                 }
             }
 
@@ -551,14 +576,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                         .ERRORNO.RESULT_NOT_FOUND) {
                     showToast("没有搜索结果");
                 } else {
-                    routeLineDistanceList.clear();
-                    routeLinerDurationList.clear();
+                    /** 记录路线长度，以“米”为单位  */
+                    ArrayList<Integer> routeLineDistanceListTran = new ArrayList<>();
+                    /** 记录路线耗时，以“秒为单位”*/
+                    ArrayList<Integer> routeLinerDurationListTran = new ArrayList<>();
                     transList = transitRouteResult.getRouteLines();
                     for (TransitRouteLine routeLine : transList) {
-                        routeLineDistanceList.add(routeLine.getDistance());
-                        routeLinerDurationList.add(routeLine.getDuration());
+                        routeLineDistanceListTran.add(routeLine.getDistance());
+                        routeLinerDurationListTran.add(routeLine.getDuration());
                     }
-                    addFragmentDatas("transit", routeLineDistanceList, routeLinerDurationList);
+                    addFragmentDatas("TRANSIT", routeLineDistanceListTran, routeLinerDurationListTran);
                 }
             }
 
@@ -568,15 +595,16 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                         .ERRORNO.RESULT_NOT_FOUND) {
                     showToast("没有搜索结果");
                 } else {
-                    routeLineDistanceList.clear();
-                    routeLinerDurationList.clear();
+                    /** 记录路线长度，以“米”为单位  */
+                    ArrayList<Integer> routeLineDistanceListDist = new ArrayList<>();
+                    /** 记录路线耗时，以“秒为单位”*/
+                    ArrayList<Integer> routeLinerDurationListDist = new ArrayList<>();
                     drivList = drivingRouteResult.getRouteLines();
                     for (DrivingRouteLine routeLine : drivList) {
-                        routeLineDistanceList.add(routeLine.getDistance());
-                        routeLinerDurationList.add(routeLine.getDuration());
+                        routeLineDistanceListDist.add(routeLine.getDistance());
+                        routeLinerDurationListDist.add(routeLine.getDuration());
                     }
-                    addFragmentDatas("driving", routeLineDistanceList, routeLinerDurationList);
-                    mapTabhostLayout.setVisibility(View.VISIBLE);
+                    addFragmentDatas("DRIVING", routeLineDistanceListDist, routeLinerDurationListDist);
                 }
             }
 
@@ -617,8 +645,25 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      */
     private void addFragmentDatas(String fragmentTag, ArrayList<Integer> routeLineDistanceList,
                                   ArrayList<Integer> routeLinerDurationList) {
-        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag
-                (fragmentTag);
+        /*******************************  测试 ********************************************
+        int datas[] = new int[routeLineDistanceList.size()];
+        for (int i = 0;i < routeLineDistanceList.size();i++) {
+            datas[i] = routeLineDistanceList.get(i);
+
+        }
+        Intent intent = new Intent(MAPActivity.this, TestActivity.class);
+        intent.putExtra("datas",datas);
+        startActivity(intent);
+        finish();
+
+        **************************************************************************/
+        FragmentManager manager = getSupportFragmentManager();
+        List<Fragment> fragments = manager.getFragments();
+        String tag = "";
+        for (Fragment fragment:fragments) {
+            tag = fragment.getTag();
+        }
+        BaseFragment fragment = (BaseFragment) manager.findFragmentByTag(fragmentTag);
         fragment.setAdapterDatas(routeLineDistanceList, routeLinerDurationList);
     }
 
@@ -627,14 +672,14 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
      */
     private void beginTransitSearch() {
         //步行
-        WalkingRoutePlanOption walkOption = new WalkingRoutePlanOption();
+       /* WalkingRoutePlanOption walkOption = new WalkingRoutePlanOption();
         PlanNode walkStart = PlanNode.withLocation(startLatLng);
         walkOption.from(walkStart);
         PlanNode walkEnd = PlanNode.withLocation(endLatLng);
         walkOption.to(walkEnd);//终点
-        mRoutePlanSearch.walkingSearch(walkOption);
+        mRoutePlanSearch.walkingSearch(walkOption);*/
 
-       /* //驾车
+        //驾车
         DrivingRoutePlanOption drOption = new DrivingRoutePlanOption();
         PlanNode drivStart = PlanNode.withLocation(startLatLng);
         drOption.from(drivStart);
@@ -643,15 +688,13 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         mRoutePlanSearch.drivingSearch(drOption);
 
         //公交搜索指定起点与终点对象
-        TransitRoutePlanOption transOptin = new TransitRoutePlanOption();
+        /*TransitRoutePlanOption transOptin = new TransitRoutePlanOption();
         transOptin.city(cityLocation);//城市
         PlanNode start = PlanNode.withLocation(startLatLng);
         transOptin.from(start);//起点
         PlanNode end = PlanNode.withLocation(endLatLng);
         transOptin.to(end);//终点
         mRoutePlanSearch.transitSearch(transOptin);*/
-
-        baiduHomeActivityMapButLine.setVisibility(View.GONE);
     }
 
     /**
@@ -771,6 +814,7 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
                 baiduHomeActivitySearchPoiLayout.setVisibility(View.GONE);
                 break;
             case R.id.baidu_home_activity_map_but_line:
+                mapTabhostLayout.setVisibility(View.VISIBLE);
                 beginTransitSearch();
                 break;
 
@@ -810,5 +854,6 @@ public class MAPActivity extends BaseActivtiy implements ILocationView {
         //销毁搜索对象
         poiSearch.destroy();
         loactionGetPresenter.clear();
+        ButterKnife.unbind(this);
     }
 }

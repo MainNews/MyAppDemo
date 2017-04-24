@@ -10,7 +10,10 @@ import java.util.ArrayList;
  * Fragment的父类
  */
 
-public class BaseFragment extends Fragment {
-   public  void setAdapterDatas(ArrayList<Integer> routeLineDistanceList, ArrayList<Integer>
-            routeLinerDurationList){}
+public class BaseFragment extends Fragment implements BaseFragmentInterface{
+   @Override
+   public void setAdapterDatas(ArrayList<Integer> routeLineDistanceList, ArrayList<Integer>
+           routeLinerDurationList) {
+
+   }
 }
