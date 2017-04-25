@@ -15,18 +15,13 @@ import com.baidu.mapapi.search.route.DrivingRouteResult;
 import com.baidu.mapapi.search.route.IndoorRouteResult;
 import com.baidu.mapapi.search.route.MassTransitRouteResult;
 import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
-import com.baidu.mapapi.search.route.PlanNode;
 import com.baidu.mapapi.search.route.RoutePlanSearch;
 import com.baidu.mapapi.search.route.TransitRouteResult;
-import com.baidu.mapapi.search.route.WalkingRouteLine;
-import com.baidu.mapapi.search.route.WalkingRoutePlanOption;
 import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.map.MAPPathActivity;
-import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.WalkingRouteOverlay;
 import com.example.hank.myappdemo.map.mapModel.LocationBean;
 
-import java.util.List;
 
 /**
  * Created by Jun on 2017/4/25.

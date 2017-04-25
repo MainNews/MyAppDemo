@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 由于管方给的图片没有找到，随便使用了两张图 -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+	<item android:state_pressed="true" android:drawable="@drawable/button_down"/>
+	<item android:drawable="@drawable/button_on"/>
+</selector>
