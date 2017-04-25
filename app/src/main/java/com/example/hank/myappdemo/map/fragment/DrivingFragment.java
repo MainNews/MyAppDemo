@@ -23,6 +23,7 @@ import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.map.MAPPathActivity;
 import com.example.hank.myappdemo.map.base.BaseFragment;
+import com.example.hank.myappdemo.map.base.BaseMAPPathFragment;
 import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
 import com.example.hank.myappdemo.map.mapModel.LocationBean;
 
@@ -33,138 +34,37 @@ import java.util.List;
  * 展示自驾路线
  */
 
-public class DrivingFragment extends BaseFragment {
-    private MAPPathActivity mapPathActivity;
-    private View mViewContent;//缓存视图
-    /**
-     * 显示地图
-     */
-    protected MapView mapView;
-    /**
-     * 路线搜索对象
-     */
-    private RoutePlanSearch mRoutePlanSearch;
-    /**
-     * 控制地图
-     */
-    private BaiduMap baiduMap;
-    /**
-     * 记录开始位置
-     */
-    private LatLng startPathLatLng;
-    /**
-     * 记录结束位置
-     */
-    private LatLng endPathLatLng;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mapPathActivity = (MAPPathActivity) getActivity();
-        mRoutePlanSearch = RoutePlanSearch.newInstance();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
-            Bundle savedInstanceState) {
-        Bundle drivingBundle = getArguments();
-        LocationBean startLocationBean = (LocationBean) drivingBundle.getSerializable("PATH_START_LOCATION_BEAN");
-        LocationBean endLocationBean = (LocationBean) drivingBundle.getSerializable("PATH_END_LOCATION_BEAN");
-        startPathLatLng = new LatLng(startLocationBean.getLatitude(),startLocationBean.getLongitude());
-        endPathLatLng = new LatLng(endLocationBean.getLatitude(),endLocationBean.getLongitude());
-        if (mViewContent == null) {
-            mViewContent= inflater.inflate(R.layout.map_rout_dri_result_fragment_layout, container, false);
-        }
-        // 缓存View判断是否含有parent, 如果有需要从parent删除, 否则发生已有parent的错误.
-        ViewGroup parent = (ViewGroup) mViewContent.getParent();
-        if (parent != null) {
-            parent.removeView(mViewContent);
-        }
-        return mViewContent;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mapView = (MapView) mViewContent.findViewById(R.id.map_activity_path_map);
-        baiduMap = mapView.getMap();
-        beginTransitSearch();
-        mRoutePlanSearch.setOnGetRoutePlanResultListener(new OnGetRoutePlanResultListener() {
-            @Override
-            public void onGetWalkingRouteResult(WalkingRouteResult walkingRouteResult) {
-
-            }
-
-            @Override
-            public void onGetTransitRouteResult(TransitRouteResult transitRouteResult) {
-
-            }
-
-            @Override
-            public void onGetMassTransitRouteResult(MassTransitRouteResult massTransitRouteResult) {
-
-            }
-
-            @Override
-            public void onGetDrivingRouteResult(DrivingRouteResult drivingRouteResult) {
-                if (drivingRouteResult == null || drivingRouteResult.error == DrivingRouteResult
-                        .ERRORNO.RESULT_NOT_FOUND) { mapPathActivity.showToast("没有搜索结果");
-                } else {
-                    /** 记录路线长度，以“米”为单位  */
-                    //ArrayList<Integer> routeLineDistanceListDist = new ArrayList<>();
-                    /** 记录路线耗时，以“秒为单位”*/
-                   // ArrayList<Integer> routeLinerDurationListDist = new ArrayList<>();
-                    List<DrivingRouteLine> drivList = drivingRouteResult.getRouteLines();
-                    for (int i = 0 ;i < 1 ; i++) {
-                        DrivingRouteOverlay overlay = new DrivingRouteOverlay(baiduMap);
-                        overlay.setData(drivList.get(i));//设置路线的数据
-                        overlay.addToMap();//添加到地图
-                        overlay.zoomToSpan();//缩放地图
-                    }
-                }
-            }
-
-            @Override
-            public void onGetIndoorRouteResult(IndoorRouteResult indoorRouteResult) {
-
-            }
-
-            @Override
-            public void onGetBikingRouteResult(BikingRouteResult bikingRouteResult) {
-
-            }
-        });
-    }
+public class DrivingFragment extends BaseMAPPathFragment {
     /**
      * 发起路线搜索
      */
-    private void beginTransitSearch() {
-        //驾车
-        DrivingRoutePlanOption drOption = new DrivingRoutePlanOption();
-        PlanNode drivStart = PlanNode.withLocation(startPathLatLng);
-        drOption.from(drivStart);
-        PlanNode drivEnd = PlanNode.withLocation(endPathLatLng);
-        drOption.to(drivEnd);//终点
-        mRoutePlanSearch.drivingSearch(drOption);
+    @Override
+    protected void beginTransitSearch() {
+            //驾车
+            DrivingRoutePlanOption drOption = new DrivingRoutePlanOption();
+            PlanNode drivStart = PlanNode.withLocation(startPathLatLng);
+            drOption.from(drivStart);
+            PlanNode drivEnd = PlanNode.withLocation(endPathLatLng);
+            drOption.to(drivEnd);//终点
+            mRoutePlanSearch.drivingSearch(drOption);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause(); // 关联MapView与Activity的生命周期
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mapView.onResume(); // 关联MapView与Activity的生命周期
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mapView.onDestroy(); // 关联MapView与Activity的生命周期
-        mRoutePlanSearch.destroy();
+    protected void onGetDrivingRouteResultListener(DrivingRouteResult drivingRouteResult) {
+        if (drivingRouteResult == null || drivingRouteResult.error == DrivingRouteResult
+                .ERRORNO.RESULT_NOT_FOUND) { mapPathActivity.showToast("没有搜索结果");
+        } else {
+            /** 记录路线长度，以“米”为单位  */
+            //ArrayList<Integer> routeLineDistanceListDist = new ArrayList<>();
+            /** 记录路线耗时，以“秒为单位”*/
+            // ArrayList<Integer> routeLinerDurationListDist = new ArrayList<>();
+            List<DrivingRouteLine> drivList = drivingRouteResult.getRouteLines();
+            for (int i = 0 ;i < 1 ; i++) {
+                DrivingRouteOverlay overlay = new DrivingRouteOverlay(baiduMap);
+                overlay.setData(drivList.get(i));//设置路线的数据
+                overlay.addToMap();//添加到地图
+                overlay.zoomToSpan();//缩放地图
+            }
+        }
     }
 }

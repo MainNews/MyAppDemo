@@ -21,6 +21,7 @@ import com.example.hank.myappdemo.map.fragment.MainTab;
 public class MAPPathActivity extends MAPBaseActivity {
     private FragmentTabHost pathTabHost;
     private Bundle bundle;
+    private TextView backText;
     @Override
     public int getLayoutRes() {
         return R.layout.map_activity_path_layout;
@@ -37,8 +38,20 @@ public class MAPPathActivity extends MAPBaseActivity {
         pathTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         pathTabHost.setup(this, getSupportFragmentManager(), R.id.flt_realcontent);
         pathTabHost.setBackgroundColor(Color.TRANSPARENT);
+        backText = (TextView) findViewById(R.id.map_activity_path_text_back);
+        initListener();
         initTab();
     }
+
+    private void initListener() {
+        backText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
     /**
      * 初始化标签
      */

@@ -2,6 +2,7 @@ package com.example.hank.myappdemo.map.fragment;
 
 
 import com.example.hank.myappdemo.map.base.BaseFragment;
+import com.example.hank.myappdemo.map.base.BaseMAPPathFragment;
 
 /**
  * 底部功能模块的枚举
@@ -13,7 +14,7 @@ public enum MainTab {
 	TRANSIT(2,"公交","TRANSIT",TransitFragment.class),
 	WAILKING(3,"步行","WAILKING",WailkingFragment.class);
 	private MainTab(int id, String title, String tag,
-			Class<? extends BaseFragment> clz) {
+			Class<? extends BaseMAPPathFragment> clz) {
 		this.id = id;
 		this.title = title;
 		this.tag = tag;
@@ -22,7 +23,7 @@ public enum MainTab {
 	private int id;
 	private String title;//标题
 	private String tag;//标记
-	private Class<? extends BaseFragment> clz;
+	private Class<? extends BaseMAPPathFragment> clz;
 	
 	
 	public int getId() {
@@ -34,7 +35,7 @@ public enum MainTab {
 	public String getTag() {
 		return tag;
 	}
-	public Class<? extends BaseFragment> getClz() {
+	public Class<? extends BaseMAPPathFragment> getClz() {
 		return clz;
 	}
 	

@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.percent.PercentRelativeLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTabHost;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
@@ -21,9 +18,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,27 +47,9 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.mapapi.search.route.BikingRouteResult;
-import com.baidu.mapapi.search.route.DrivingRouteLine;
-import com.baidu.mapapi.search.route.DrivingRoutePlanOption;
-import com.baidu.mapapi.search.route.DrivingRouteResult;
-import com.baidu.mapapi.search.route.IndoorRouteResult;
-import com.baidu.mapapi.search.route.MassTransitRouteResult;
-import com.baidu.mapapi.search.route.OnGetRoutePlanResultListener;
-import com.baidu.mapapi.search.route.PlanNode;
-import com.baidu.mapapi.search.route.RoutePlanSearch;
-import com.baidu.mapapi.search.route.TransitRouteLine;
-import com.baidu.mapapi.search.route.TransitRouteResult;
-import com.baidu.mapapi.search.route.WalkingRouteLine;
-import com.baidu.mapapi.search.route.WalkingRouteResult;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.map.adapter.SearchPoiAdapter;
-import com.example.hank.myappdemo.map.base.BaseFragment;
-import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.DrivingRouteOverlay;
 import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.PoiOverlay;
-import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.TransitRouteOverlay;
-import com.example.hank.myappdemo.map.com.baidu.mapapi.overlayutil.WalkingRouteOverlay;
-import com.example.hank.myappdemo.map.fragment.MainTab;
 import com.example.hank.myappdemo.map.mapModel.LocationBean;
 import com.example.hank.myappdemo.map.mapPresenter.LoactionGetPresenter;
 import com.example.hank.myappdemo.map.mapView.ILocationView;
@@ -89,7 +66,7 @@ import butterknife.OnClick;
  * 展示百度地图
  */
 
-public class MAPActivity extends FragmentActivity implements ILocationView {
+public class MAPActivity extends AppCompatActivity implements ILocationView {
 
     @Bind(R.id.baidu_home_activity_map_view)
     MapView baiduHomeActivityMapView;
