@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">AndroidAppDemo</string>
+    <string name="value_animator_text">ValueAnimator属性动画</string>
+    <string name="android_animation">android 1.0 动画</string>
+    <string name="value_animator_of_float">ValueAnimator属性动画,使用小数动画次数</string>
+    <string name="cancel">结束动画</string>
+    <string name="value_animator_argb_evaluator">使用ArgbEvaluator改背景颜色</string>
 </resources>

@@ -8,7 +8,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="start view anim"
+            android:text="@string/android_animation"
             />
 
         <Button
@@ -16,19 +16,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="value_animator"
+            android:text="@string/value_animator_text"
             />
         <Button
             android:id="@+id/btn_value_animator_of_float"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="btn_value_animator_of_float"/>
+            android:text="@string/value_animator_of_float"/>
+        <TextView
+            android:id="@+id/btn_value_animator_argb_evaluator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/value_animator_argb_evaluator"/>
         <Button
             android:id="@+id/cancel_animation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
-            android:text="cancel_animation"
+            android:text="@string/cancel"
             />
 </LinearLayout>

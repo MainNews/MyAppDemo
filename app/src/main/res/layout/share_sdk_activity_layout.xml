@@ -4,19 +4,17 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <Button
-        android:id="@+id/my_view_draw_paint_circle"
+        android:id="@+id/share_sdk_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="paint基本使用(一)"
-        android:padding="6dp"
-        android:textSize="16sp"
-        />
+        android:text="第三方登录"
+        android:textSize="16dp"/>
     <Button
-        android:id="@+id/my_view_draw_path_line"
+        android:id="@+id/share_sdk_share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="画直线与文字(二)"
-        android:padding="6dp"
-        android:textSize="16sp"
-        />
+        android:text="第三方分享"
+        android:textSize="16dp"/>
+
+
 </LinearLayout>

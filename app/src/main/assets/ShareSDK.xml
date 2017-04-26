@@ -78,6 +78,7 @@
         SortId="3"
         AppId="1106123744"
         AppKey="KQ492ePllc25rMIq"
+        RedirectUri="http://www.baidu.com"
         Enable="true" />
     <!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->
     <QQ
@@ -85,6 +86,7 @@
         SortId="7"
         AppId="1106123744"
         AppKey="KQ492ePllc25rMIq"
+        RedirectUri="http://www.baidu.com"
         ShareByAppClient="true"
         Enable="true" />
 </DevInfor>

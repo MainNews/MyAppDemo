@@ -56,6 +56,8 @@
         <activity android:name=".mveiw.draw.DrawViewStepActivity"/>
         <!-- 自定义View绘图篇，演示Paint与Canvas的基本使用（一） -->
         <activity android:name=".mveiw.draw.activity.DrawViewActivty"/>
+        <!-- 自定义View绘图篇，演示路径与文字（二） -->
+        <activity android:name=".mveiw.draw.activity.DrawPathViewActivity"/>
 
 
         <service
@@ -83,6 +85,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <!-- 展示ShareSDK功能的界面-->
+        <activity android:name=".shareask.ShareSDKActvity"/>
         <!-- 展示第三方登录的界面-->
         <activity android:name=".shareask.activity.ShareSDKRegisterActivity"/>
     </application>

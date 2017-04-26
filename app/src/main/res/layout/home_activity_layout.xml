@@ -33,17 +33,8 @@
         android:id="@+id/home_share_sdk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="进行第三方分享"
+        android:text="进入ShareSDK"
         android:padding="6dp"
         android:textSize="16sp"
         />
-    <Button
-        android:id="@+id/home_share_sdk_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="进行第三方登录"
-        android:padding="6dp"
-        android:textSize="16sp"
-        />
-
 </LinearLayout>
