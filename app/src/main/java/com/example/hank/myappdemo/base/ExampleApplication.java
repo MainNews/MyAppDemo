@@ -18,6 +18,8 @@ public class ExampleApplication extends Application {
      * 监听本该回收的对象
      */
     private RefWatcher refWatcher;
+    private static Context context;//全局 上下文 ：ApplicationContext
+
     public static RefWatcher getRefWatcher(Context context) {
         ExampleApplication application = (ExampleApplication) context.getApplicationContext();
         return application.refWatcher;
@@ -27,5 +29,11 @@ public class ExampleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
+        context = this.getApplicationContext();
     }
+
+    public static Context getContext() {
+        return context;
+    }
+
 }
