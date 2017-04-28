@@ -60,6 +60,10 @@
         <activity android:name=".mveiw.draw.activity.DrawViewActivty"/>
         <!-- 自定义View绘图篇，演示路径与文字（二） -->
         <activity android:name=".mveiw.draw.activity.DrawPathViewActivity"/>
+        <!-- 自定义View绘图篇，使用Paint演示文字（二） -->
+        <activity android:name=".mveiw.draw.activity.DrawTextPathViewActivity"/>
+        <!-- 自定义View绘图篇，使用Canvas演示文字（二） -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasTextViewActivity"/>
 
 
         <service
