@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.mveiw.animation.draw.MyPointView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -43,6 +45,12 @@ public class ViewAnimation extends AppCompatActivity {
     Button cancelAnimation;
     @Bind(R.id.btn_value_animator_argb_evaluator)
     TextView btnValueAnimatorArgbEvaluator;
+    @Bind(R.id.btn_value_animator_of_object_)
+    TextView btnValueAnimatorOfObject;
+    @Bind(R.id.btn_value_animator_of_object_view)
+    Button btnValueAnimatorOfObjectView;
+    @Bind(R.id.point_view)
+    MyPointView pointView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +62,8 @@ public class ViewAnimation extends AppCompatActivity {
     private ValueAnimator valueAnimator;
 
     @OnClick({R.id.btn, R.id.btn_value_animator, R.id.btn_value_animator_of_float, R.id
-            .cancel_animation,R.id.btn_value_animator_argb_evaluator})
+            .cancel_animation, R.id.btn_value_animator_argb_evaluator, R.id
+            .btn_value_animator_of_object_,R.id.btn_value_animator_of_object_view})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn:
@@ -90,6 +99,18 @@ public class ViewAnimation extends AppCompatActivity {
                 startValueAnimatorArgbEvaluator();
                 break;
             /*
+                使用OfObject方法，动画改变textView的文本内容
+             */
+            case R.id.btn_value_animator_of_object_:
+                startValueAnimatorOfObject();
+                break;
+            /*
+                通过自定义的MyPointView使用Point参数类形对该View进行动画操作
+             */
+            case R.id.btn_value_animator_of_object_view:
+                pointView.doPointAnim();//开始动画
+                break;
+            /*
                 结束动画
              */
             case R.id.cancel_animation:
@@ -99,6 +120,26 @@ public class ViewAnimation extends AppCompatActivity {
                 }
                 break;
         }
+    }
+
+    /**
+     * 这里使用ValueAnimator.ofObject()方法，使控件使用动画的方式，将内容进行转换
+     */
+    private void startValueAnimatorOfObject() {
+        final ValueAnimator animator = ValueAnimator.ofObject(new CharEvaluator(), new Character
+                ('A'),
+                new Character('Z'));
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                char text = (char) animator.getAnimatedValue();
+                btnValueAnimatorOfObject.setText(String.valueOf(text));
+            }
+        });
+        animator.setDuration(10000);
+        animator.setInterpolator(new AccelerateInterpolator());//加速插值器，先慢后快
+        animator.start();
+
     }
 
     /**
@@ -197,6 +238,20 @@ public class ViewAnimation extends AppCompatActivity {
         // animator.setInterpolator(new MyInterpolator());
         animator.setEvaluator(new MyEvalutor());
         animator.start();
+    }
+
+    /**
+     * 自定义一个CharEvaluator类，将传进来的字节转为数字，在进行算法转换
+     */
+    public class CharEvaluator implements TypeEvaluator<Character> {
+        @Override
+        public Character evaluate(float fractopm, Character startValue, Character endValue) {
+            int startInt = (int) startValue;
+            int endInt = (int) endValue;
+            int curInt = (int) (startInt + fractopm * (endInt - startInt));
+            char result = (char) curInt;
+            return result;
+        }
     }
 
     /**

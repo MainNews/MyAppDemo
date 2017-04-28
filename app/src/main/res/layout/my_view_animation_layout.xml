@@ -30,6 +30,18 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/value_animator_argb_evaluator"/>
+        <TextView
+            android:id="@+id/btn_value_animator_of_object_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/vale_animator_of_object"/>
+        <Button
+            android:id="@+id/btn_value_animator_of_object_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/of_object_view_pointView"/>
         <Button
             android:id="@+id/cancel_animation"
             android:layout_width="wrap_content"
@@ -37,4 +49,8 @@
             android:padding="10dp"
             android:text="@string/cancel"
             />
+        <com.example.hank.myappdemo.mveiw.animation.draw.MyPointView
+            android:id="@+id/point_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 </LinearLayout>

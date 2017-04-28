@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+
     <Button
         android:id="@+id/alpha_scale_translate_rotate"
         android:layout_width="wrap_content"
@@ -10,27 +11,28 @@
         android:text="alpha_scale_translate_rotate"
         android:textSize="14sp"
         />
+
     <Button
-            android:id="@+id/view_animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="view_animation"
-            android:textSize="14sp"
-            />
+        android:id="@+id/view_animation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="view_animation"
+        android:textSize="14sp"
+        />
 
-        <Button
-            android:id="@+id/value_animator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="value_animator"
-            android:textSize="14sp"
-            />
+    <Button
+        android:id="@+id/value_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="value_animator"
+        android:textSize="14sp"
+        />
 
-        <Button
-            android:id="@+id/object_animator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="object_animator"
-            android:textSize="14sp"
-            />
+    <Button
+        android:id="@+id/object_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="object_animator"
+        android:textSize="14sp"
+        />
 </LinearLayout>
