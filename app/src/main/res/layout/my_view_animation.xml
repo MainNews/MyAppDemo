@@ -19,15 +19,6 @@
         android:text="view_animation"
         android:textSize="14sp"
         />
-
-    <Button
-        android:id="@+id/value_animator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="value_animator"
-        android:textSize="14sp"
-        />
-
     <Button
         android:id="@+id/object_animator"
         android:layout_width="wrap_content"

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <Button
+        android:id="@+id/my_view_animation_object_property"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/object_animator_property"
+        />
+    <Button
+        android:id="@+id/my_view_animation_object"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用自定义的控件与属性来改变动画的执行"
+        />
+    <com.example.hank.myappdemo.mveiw.animation.draw.MyPointView
+        android:id="@+id/my_object_point_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+</LinearLayout>

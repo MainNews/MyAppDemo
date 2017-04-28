@@ -7,4 +7,5 @@
     <string name="value_animator_argb_evaluator">使用ArgbEvaluator改背景颜色</string>
     <string name="vale_animator_of_object">使用OfObject改变文字内容动画</string>
     <string name="of_object_view_pointView">自定义绘图动画</string>
+    <string name="object_animator_property">使用Object_Animator改变动画属性</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.hank.myappdemo.mveiw.animation.draw;
 
-import android.animation.PointFEvaluator;
 import android.animation.TypeEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
@@ -11,7 +10,6 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
 
-import com.baidu.location.Poi;
 import com.example.hank.myappdemo.mveiw.animation.bean.Point;
 
 /**
@@ -21,7 +19,7 @@ import com.example.hank.myappdemo.mveiw.animation.bean.Point;
 
 public class MyPointView extends View {
 
-    private Point mCurPoint;
+    private Point mCurPoint = new Point(100);
 
     public MyPointView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -37,8 +35,20 @@ public class MyPointView extends View {
             paint.setStyle(Paint.Style.FILL);
             canvas.drawCircle(300, 300, mCurPoint.getRadius(), paint);
         }
+        super.onDraw(canvas);
     }
 
+    /**
+     * 通过设定的值，来完成过画，该方法会通过ObjectAnimator中的属性来找到并调用
+     */
+    public void setPointRadius(int radius){
+        mCurPoint.setRadius(radius);
+        invalidate();//强制刷新，在强制刷新后，会走onDraw()方法
+    }
+
+    /**
+     * 设置动画方法
+     */
     public void doPointAnim() {
         final ValueAnimator animator = ValueAnimator.ofObject(new PointEvaluator(), new Point(20),
                 new Point(200));

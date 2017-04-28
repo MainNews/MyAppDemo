@@ -29,7 +29,9 @@ public class ExampleApplication extends Application {
     public void onCreate() {
         super.onCreate();
         LeakCanary.install(this);
-        context = this.getApplicationContext();
+        if (context == null){
+            context = this.getApplicationContext();
+        }
     }
 
     public static Context getContext() {
