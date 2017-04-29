@@ -13,8 +13,27 @@
         android:id="@+id/my_view_animation_object"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="使用自定义的控件与属性来改变动画的执行"
+        android:text="@string/my_view_animation_object_paint"
         />
+    <Button
+        android:id="@+id/my_view_animation_object_property_values_holder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/propertyvaluesholder"
+        />
+    <com.example.hank.myappdemo.mveiw.animation.draw.MyCharTextView
+        android:id="@+id/my_animator_text_evaluator"
+        android:text="@string/evaluator"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/my_animator_btn_keyframe_property_holder"
+        android:text="@string/keyframe"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <com.example.hank.myappdemo.mveiw.animation.draw.MyPointView
         android:id="@+id/my_object_point_view"
         android:layout_width="match_parent"

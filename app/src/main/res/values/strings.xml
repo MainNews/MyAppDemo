@@ -8,4 +8,8 @@
     <string name="vale_animator_of_object">使用OfObject改变文字内容动画</string>
     <string name="of_object_view_pointView">自定义绘图动画</string>
     <string name="object_animator_property">使用Object_Animator改变动画属性</string>
+    <string name="my_view_animation_object_paint">使用自定义的控件与属性来改变动画的执行</string>
+    <string name="propertyvaluesholder">使用自定义的控件与propertyValuesHolder来改变动画的执行</string>
+    <string name="evaluator">使用自定义的Evaluator来完成动画数据的转换</string>
+    <string name="keyframe">使用Keyframe类完帧设置动画</string>
 </resources>
