@@ -26,4 +26,11 @@
         android:text="object_animator"
         android:textSize="14sp"
         />
+    <Button
+        android:id="@+id/set_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/animatorset"
+        android:textSize="14sp"
+        />
 </LinearLayout>

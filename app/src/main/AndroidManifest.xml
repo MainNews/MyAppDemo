@@ -53,6 +53,8 @@
         <activity android:name=".mveiw.animation.ViewAnimation"/>
         <!-- 自定义View动画篇，演示ObjectAnimation动画（七） -->
         <activity android:name=".mveiw.animation.ViewObjectAnimator"/>
+        <!-- 该类用于展示AnimatorSet组合形动画的操作 -->
+        <activity android:name=".mveiw.animation.ViewAnimatorSetActivity"/>
 
         <!-- 自定义View绘图篇，展示进入哪一个View的入口 -->
         <activity android:name=".mveiw.draw.DrawViewStepActivity"/>

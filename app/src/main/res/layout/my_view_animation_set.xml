@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <Button
+        android:id="@+id/my_view_animation_set_playSequentially"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/animatorset_playsequentially"
+        />
+    <Button
+        android:id="@+id/my_view_animation_set_playTogether"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/playtogether"/>
+    <Button
+        android:id="@+id/my_view_animation_set_play_builder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/buidler"/>
+    <TextView
+        android:id="@+id/my_view_animation_set_hello"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ff00ff"
+        android:text="@string/hellohanker"
+        android:textSize="16sp"/>
+    <TextView
+        android:id="@+id/my_view_animation_i_am"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ffff00"
+        android:text="@string/i_am_hanker"
+        android:textSize="16sp"/>
+
+
+
+
+
+
+
+
+</LinearLayout>

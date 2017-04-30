@@ -12,4 +12,10 @@
     <string name="propertyvaluesholder">使用自定义的控件与propertyValuesHolder来改变动画的执行</string>
     <string name="evaluator">使用自定义的Evaluator来完成动画数据的转换</string>
     <string name="keyframe">使用Keyframe类完帧设置动画</string>
+    <string name="animatorset">AnimatorSet</string>
+    <string name="animatorset_playsequentially">使用顺序动画playSequentially</string>
+    <string name="hellohanker">helloHanker</string>
+    <string name="i_am_hanker">I\'am Hanker</string>
+    <string name="playtogether">使用同时动画PlayTogether</string>
+    <string name="buidler">使用Buidler指定动画执行顺序</string>
 </resources>

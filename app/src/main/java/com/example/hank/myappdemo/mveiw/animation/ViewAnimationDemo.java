@@ -1,6 +1,5 @@
 package com.example.hank.myappdemo.mveiw.animation;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
-import com.example.hank.myappdemo.mveiw.draw.DrawViewStepActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +33,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id .object_animator})
+    @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id .object_animator,
+                R.id.set_animator})
     public void onViewClicked(View view) {
         switch (view.getId()) {//Android 1.0 基础动画
             case R.id.alpha_scale_translate_rotate:
@@ -52,6 +51,12 @@ public class ViewAnimationDemo extends AppCompatActivity {
                 Intent startObjectAnimation = new Intent(ViewAnimationDemo.this,
                         ViewObjectAnimator.class);
                 startActivity(startObjectAnimation);
+                break;
+            case R.id.set_animator://展示组合形的动画
+                Intent startAnimationSet = new Intent(ViewAnimationDemo.this,
+                        ViewAnimatorSetActivity.class);
+                startActivity(startAnimationSet);
+
                 break;
         }
     }
