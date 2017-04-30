@@ -66,6 +66,8 @@
         <activity android:name=".mveiw.draw.activity.DrawTextPathViewActivity"/>
         <!-- 自定义View绘图篇，使用Canvas演示文字（二） -->
         <activity android:name=".mveiw.draw.activity.DrawCanvasTextViewActivity"/>
+        <!-- 自定义View绘图篇，使用Region(区域)画图 -->
+        <activity android:name=".mveiw.draw.activity.DrawRegionViewActivity"/>
 
 
         <service

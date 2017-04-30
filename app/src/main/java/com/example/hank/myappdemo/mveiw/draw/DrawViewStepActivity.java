@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawPathViewActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawRegionViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawTextPathViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawViewActivty;
 import com.example.hank.myappdemo.mveiw.draw.view.MyViewDrawCanvasText;
@@ -44,7 +45,7 @@ public class DrawViewStepActivity extends AppCompatActivity {
     }
 
     @OnClick({R.id.my_view_draw_paint_circle, R.id.my_view_draw_path_line, R.id
-            .my_view_draw_path_text,R.id.my_view_draw_canvas_text})
+            .my_view_draw_path_text,R.id.my_view_draw_canvas_text,R.id.my_view_draw_regoin_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -77,6 +78,14 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startDrawCanvasText = new Intent(DrawViewStepActivity.this,
                         DrawCanvasTextViewActivity.class);
                 startActivity(startDrawCanvasText);
+                break;
+            case R.id.my_view_draw_regoin_text:
+                /*
+                    使用Region（区域）画图
+                 */
+                Intent startDrawRegion = new Intent(DrawViewStepActivity.this,
+                        DrawRegionViewActivity.class);
+                startActivity(startDrawRegion);
                 break;
         }
     }
