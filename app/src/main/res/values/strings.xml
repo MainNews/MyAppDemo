@@ -18,4 +18,5 @@
     <string name="i_am_hanker">I\'am Hanker</string>
     <string name="playtogether">使用同时动画PlayTogether</string>
     <string name="buidler">使用Buidler指定动画执行顺序</string>
+    <string name="xml_animator">使用XML展示动画</string>
 </resources>

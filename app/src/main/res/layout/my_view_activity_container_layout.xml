@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/my_view_container_xml_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用XML展示连合动画"
+        android:textSize="16sp"/>
+    <Button
+        android:id="@+id/my_view_container_animator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="使用XML展示连合动画"
+        android:textSize="16sp"/>
+</LinearLayout>

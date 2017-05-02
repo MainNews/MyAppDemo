@@ -25,6 +25,10 @@ public class ViewAnimationDemo extends AppCompatActivity {
     Button viewAnimation;
     @Bind(R.id.object_animator)
     Button objectAnimator;
+    @Bind(R.id.set_animator)
+    Button setAnimator;
+    @Bind(R.id.container_animator)
+    Button containerAnimator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,8 +37,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-    @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id .object_animator,
-                R.id.set_animator})
+    @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id.object_animator,
+            R.id.set_animator, R.id.container_animator})
     public void onViewClicked(View view) {
         switch (view.getId()) {//Android 1.0 基础动画
             case R.id.alpha_scale_translate_rotate:
@@ -57,6 +61,11 @@ public class ViewAnimationDemo extends AppCompatActivity {
                         ViewAnimatorSetActivity.class);
                 startActivity(startAnimationSet);
 
+                break;
+            case R.id.container_animator://使用XML方式展示连合动画
+                Intent startContainerAnimation = new Intent(ViewAnimationDemo.this,
+                        ViewAnimatorContainerActivity.class);
+                startActivity(startContainerAnimation);
                 break;
         }
     }
