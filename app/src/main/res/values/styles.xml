@@ -8,4 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- 使用自定义的动画来实现菜单显示 -->
+    <style name="MenuStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_gravity">right|bottom</item>
+    </style>
+
+    <style name="MenuItemStyle">
+        <item name="android:layout_width">45dp</item>
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_gravity">right|bottom</item>
+    </style>
 </resources>

@@ -1,19 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
     <Button
         android:id="@+id/my_view_container_xml_animator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="使用XML展示连合动画"
+        android:text="@string/xml_value"
         android:textSize="16sp"/>
+
     <Button
-        android:id="@+id/my_view_container_animator"
+        android:id="@+id/my_view_container_xml_animator_obj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="使用XML展示连合动画"
+        android:text="@string/xml_obj"
         android:textSize="16sp"/>
+
+    <Button
+        android:id="@+id/my_view_container_xml_animator_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/xml_set"
+        android:textSize="16sp"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp">
+
+        <Button
+            android:id="@+id/menu"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_kaixin"
+            />
+
+        <Button
+            android:id="@+id/item0"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_qq"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/item1"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_wechat"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/item2"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_tencentweibo"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/item3"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_alipaymoments"
+            android:visibility="gone"
+            />
+
+        <Button
+            android:id="@+id/item4"
+            style="@style/MenuStyle"
+            android:background="@drawable/ssdk_oks_classic_sinaweibo"
+            android:visibility="gone"
+            />
+    </FrameLayout>
 </LinearLayout>

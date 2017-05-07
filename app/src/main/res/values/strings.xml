@@ -19,4 +19,7 @@
     <string name="playtogether">使用同时动画PlayTogether</string>
     <string name="buidler">使用Buidler指定动画执行顺序</string>
     <string name="xml_animator">使用XML展示动画</string>
+    <string name="xml_value">使用XML展示连合动画</string>
+    <string name="xml_obj">使用objAnimator开始动画</string>
+    <string name="xml_set">使用Animator_Set演示动画</string>
 </resources>
