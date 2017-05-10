@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 给Group子控件添加统一动画
+        delay : 指每个Item的动画开始延时时间，取animation指定动画文件中设定时间的倍数
+        animationOrder ：指ViewGroup中的控件动画开始顺序，取值有：normal(正常)，reverse(倒序)，random(随机)
+        animation ：指定每个Item入场时要应用的动画，仅只能指定 res/anim文件夹下的animation动画
+
+ -->
+<layoutAnimation xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:animation="@anim/slid_in_left"
+                 android:animationOrder="normal"
+                 android:delay="1"
+    >
+</layoutAnimation>

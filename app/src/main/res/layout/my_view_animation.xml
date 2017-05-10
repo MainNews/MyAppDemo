@@ -44,5 +44,12 @@
             android:text="@string/xml_animator"
             android:textSize="14sp"
             />
+        <Button
+            android:id="@+id/layout_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/layout_animation_xml"
+            android:textSize="14sp"
+            />
     </LinearLayout>
 </LinearLayout>

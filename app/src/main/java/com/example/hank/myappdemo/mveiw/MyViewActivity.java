@@ -40,17 +40,17 @@ public class MyViewActivity extends BaseActivtiy {
     @OnClick({R.id.my_view_animation, R.id.my_view_paint, R.id.my_view_group})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.my_view_animation:
+            case R.id.my_view_animation://动画
                 Intent startAnimation = new Intent(MyViewActivity.this,
                         ViewAnimationDemo.class);
                 startActivity(startAnimation);
                 break;
-            case R.id.my_view_paint:
+            case R.id.my_view_paint://绘图
                 Intent startDraw = new Intent(MyViewActivity.this,
                         DrawViewStepActivity.class);
                 startActivity(startDraw);
                 break;
-            case R.id.my_view_group:
+            case R.id.my_view_group://视图
                 break;
         }
     }

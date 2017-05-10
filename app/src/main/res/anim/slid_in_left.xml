@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ 这时实现动画为：duration:动画时间为1秒
+                 translate: 动画位移，从-50% 到 0 的位置
+                 alpha : 控件颜色透明度的转变，从 透明0 到 不透明 1
+ -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1000" >
+
+    <translate android:fromXDelta="-50%p" android:toXDelta="0" />
+
+    <alpha android:fromAlpha="0.0" android:toAlpha="1.0" />
+
+</set>
