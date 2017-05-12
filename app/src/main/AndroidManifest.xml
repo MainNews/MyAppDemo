@@ -60,7 +60,9 @@
         <!-- 该类用于展示使用XML实现联合动画（十） -->
         <activity android:name=".mveiw.animation.ViewAnimatorContainerActivity"/>
         <!-- 该类用于展示使用XML实现Group子控件的动画（十一） -->
-        <activity android:name=".mveiw.animation.draw.ViewLayoutAnimationActivity"/>
+        <activity android:name=".mveiw.animation.ViewLayoutAnimationActivity"/>
+        <!-- 该类用于展示使用代码形式实现Group子控件的动画（十一） -->
+        <activity android:name=".mveiw.animation.ViewLayoutAnimationCodeActivity"/>
 
         <!-- 自定义View绘图篇，展示进入哪一个View的入口 -->
         <activity android:name=".mveiw.draw.DrawViewStepActivity"/>

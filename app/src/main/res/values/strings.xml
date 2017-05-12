@@ -22,5 +22,5 @@
     <string name="xml_value">使用XML展示连合动画</string>
     <string name="xml_obj">使用objAnimator开始动画</string>
     <string name="xml_set">使用Animator_Set演示动画</string>
-    <string name="layout_animation_xml">展示子控件动画</string>
+    <string name="layout_animation_xml">使用LayoutAnimation展示子控件动画</string>
 </resources>

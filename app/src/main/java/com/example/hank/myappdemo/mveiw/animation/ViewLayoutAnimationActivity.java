@@ -1,4 +1,4 @@
-package com.example.hank.myappdemo.mveiw.animation.draw;
+package com.example.hank.myappdemo.mveiw.animation;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

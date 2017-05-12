@@ -51,5 +51,12 @@
             android:text="@string/layout_animation_xml"
             android:textSize="14sp"
             />
+        <Button
+            android:id="@+id/layout_animation_word"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="使用layoutAniamtion代码方式实现动画"
+            android:textSize="14sp"
+            />
     </LinearLayout>
 </LinearLayout>

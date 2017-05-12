@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
-import com.example.hank.myappdemo.mveiw.animation.draw.ViewLayoutAnimationActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,6 +31,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
     Button containerAnimator;
     @Bind(R.id.layout_animation)
     Button layoutAnimation;
+    @Bind(R.id.layout_animation_word)
+    Button layoutAnimationWord;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +42,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
     }
 
     @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id.object_animator,
-            R.id.set_animator, R.id.container_animator,R.id.layout_animation})
+            R.id.set_animator, R.id.container_animator, R.id.layout_animation,
+            R.id.layout_animation_word})
     public void onViewClicked(View view) {
         switch (view.getId()) {//Android 1.0 基础动画
             case R.id.alpha_scale_translate_rotate:
@@ -74,6 +76,11 @@ public class ViewAnimationDemo extends AppCompatActivity {
                 Intent startLayoutAnimation = new Intent(ViewAnimationDemo.this,
                         ViewLayoutAnimationActivity.class);
                 startActivity(startLayoutAnimation);
+                break;
+            case R.id.layout_animation_word://使用代码方式展示Group子控件动画
+                Intent startLayoutCodeAnimation = new Intent(ViewAnimationDemo.this,
+                        ViewLayoutAnimationCodeActivity.class);
+                startActivity(startLayoutCodeAnimation);
                 break;
         }
     }
