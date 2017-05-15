@@ -8,12 +8,13 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoToActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawPathViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawRegionViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawTextPathViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawViewActivty;
-import com.example.hank.myappdemo.mveiw.draw.view.MyViewDrawCanvasText;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,6 +35,12 @@ public class DrawViewStepActivity extends AppCompatActivity {
     Button myViewDrawPathText;
     @Bind(R.id.my_view_draw_canvas_text)
     Button myViewDrawCanvasText;
+    @Bind(R.id.my_view_draw_regoin_text)
+    Button myViewDrawRegoinText;
+    @Bind(R.id.my_view_draw_go_canvas_text)
+    Button myViewDrawGoCanvasText;
+    @Bind(R.id.my_view_draw_go_canvas_to_text)
+    Button myViewDrawGoCanvasToText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,8 +51,10 @@ public class DrawViewStepActivity extends AppCompatActivity {
 
     }
 
-    @OnClick({R.id.my_view_draw_paint_circle, R.id.my_view_draw_path_line, R.id
-            .my_view_draw_path_text,R.id.my_view_draw_canvas_text,R.id.my_view_draw_regoin_text})
+    @OnClick({R.id.my_view_draw_paint_circle, R.id.my_view_draw_path_line,
+            R.id.my_view_draw_path_text, R.id.my_view_draw_canvas_text,
+            R.id.my_view_draw_regoin_text, R.id.my_view_draw_go_canvas_text,
+            R.id.my_view_draw_go_canvas_to_text})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -86,6 +95,22 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startDrawRegion = new Intent(DrawViewStepActivity.this,
                         DrawRegionViewActivity.class);
                 startActivity(startDrawRegion);
+                break;
+            case R.id.my_view_draw_go_canvas_text:
+                /*
+                    canvas变换与操作，主要是对canvas画布的深入了解
+                 */
+                Intent startDrawCanvas = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasGoActivity.class);
+                startActivity(startDrawCanvas);
+                break;
+            case R.id.my_view_draw_go_canvas_to_text:
+                /*
+                    canvas变换与操作，主要展示画布的裁剪与保存还有恢复的操作
+                 */
+                Intent startDrawCanvasTo = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasGoToActivity.class);
+                startActivity(startDrawCanvasTo);
                 break;
         }
     }
