@@ -63,6 +63,8 @@
         <activity android:name=".mveiw.animation.ViewLayoutAnimationActivity"/>
         <!-- 该类用于展示使用代码形式实现Group子控件的动画（十一） -->
         <activity android:name=".mveiw.animation.ViewLayoutAnimationCodeActivity"/>
+        <!-- 该类用于展示使用代码形式实现Group子控件的动画（十一） -->
+        <activity android:name=".mveiw.animation.ViewGridLayoutAnimationActivity"/>
 
         <!-- 自定义View绘图篇，展示进入哪一个View的入口 -->
         <activity android:name=".mveiw.draw.DrawViewStepActivity"/>
