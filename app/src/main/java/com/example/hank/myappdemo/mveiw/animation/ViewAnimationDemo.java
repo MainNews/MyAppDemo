@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.mveiw.animation.draw.ViewAnimateLayoutChanges_LayoutTransition;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
     Button layoutAnimationWord;
     @Bind(R.id.gridlayout_animation_word)
     Button gridlayoutAnimationWord;
+    @Bind(R.id.animate_layout_changes_layout_transition)
+    Button animateLayoutChangesLayoutTransition;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,7 +48,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
 
     @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id.object_animator,
             R.id.set_animator, R.id.container_animator, R.id.layout_animation,
-            R.id.layout_animation_word,R.id.gridlayout_animation_word})
+            R.id.layout_animation_word, R.id.gridlayout_animation_word,
+            R.id.animate_layout_changes_layout_transition})
     public void onViewClicked(View view) {
         switch (view.getId()) {//Android 1.0 基础动画
             case R.id.alpha_scale_translate_rotate:
@@ -84,10 +88,15 @@ public class ViewAnimationDemo extends AppCompatActivity {
                         ViewLayoutAnimationCodeActivity.class);
                 startActivity(startLayoutCodeAnimation);
                 break;
-            case R.id.gridlayout_animation_word:
+            case R.id.gridlayout_animation_word://使用gridLayoutAnimationXMl方式实现动画
                 Intent startGridLayoutAnimation = new Intent(ViewAnimationDemo.this,
                         ViewGridLayoutAnimationActivity.class);
                 startActivity(startGridLayoutAnimation);
+                break;
+            case R.id.animate_layout_changes_layout_transition:
+                Intent startLayoutChanges_LayoutTransition = new Intent(ViewAnimationDemo.this,
+                        ViewAnimateLayoutChanges_LayoutTransition.class);
+                startActivity(startLayoutChanges_LayoutTransition);
                 break;
         }
     }

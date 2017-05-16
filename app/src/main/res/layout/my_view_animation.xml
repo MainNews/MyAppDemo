@@ -55,14 +55,21 @@
             android:id="@+id/layout_animation_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用layoutAniamtion代码方式实现动画"
+            android:text="使用layoutAnimation代码方式实现动画"
             android:textSize="14sp"
             />
         <Button
             android:id="@+id/gridlayout_animation_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="使用gridLayoutAniamtionXMl方式实现动画"
+            android:text="使用gridLayoutAnimationXMl方式实现动画"
+            android:textSize="14sp"
+            />
+        <Button
+            android:id="@+id/animate_layout_changes_layout_transition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="给ViewGroup的子控件在添加时显示动画"
             android:textSize="14sp"
             />
     </LinearLayout>
