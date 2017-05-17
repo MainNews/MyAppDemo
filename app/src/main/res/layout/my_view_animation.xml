@@ -72,5 +72,12 @@
             android:text="给ViewGroup的子控件在添加时显示动画"
             android:textSize="14sp"
             />
+        <Button
+            android:id="@+id/animate_layout_list_item_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="给ListView添加动画效果"
+            android:textSize="14sp"
+            />
     </LinearLayout>
 </LinearLayout>

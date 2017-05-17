@@ -38,6 +38,8 @@ public class ViewAnimationDemo extends AppCompatActivity {
     Button gridlayoutAnimationWord;
     @Bind(R.id.animate_layout_changes_layout_transition)
     Button animateLayoutChangesLayoutTransition;
+    @Bind(R.id.animate_layout_list_item_img)
+    Button animateLayoutListItemImg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class ViewAnimationDemo extends AppCompatActivity {
     @OnClick({R.id.alpha_scale_translate_rotate, R.id.view_animation, R.id.object_animator,
             R.id.set_animator, R.id.container_animator, R.id.layout_animation,
             R.id.layout_animation_word, R.id.gridlayout_animation_word,
-            R.id.animate_layout_changes_layout_transition})
+            R.id.animate_layout_changes_layout_transition,R.id.animate_layout_list_item_img})
     public void onViewClicked(View view) {
         switch (view.getId()) {//Android 1.0 基础动画
             case R.id.alpha_scale_translate_rotate:
@@ -93,10 +95,15 @@ public class ViewAnimationDemo extends AppCompatActivity {
                         ViewGridLayoutAnimationActivity.class);
                 startActivity(startGridLayoutAnimation);
                 break;
-            case R.id.animate_layout_changes_layout_transition:
+            case R.id.animate_layout_changes_layout_transition://给ViewGroup在添加子控件时添加动画效果
                 Intent startLayoutChanges_LayoutTransition = new Intent(ViewAnimationDemo.this,
                         ViewAnimateLayoutChanges_LayoutTransition.class);
                 startActivity(startLayoutChanges_LayoutTransition);
+                break;
+            case R.id.animate_layout_list_item_img://给ListView中的item添加动画效果
+                Intent startListViewItem = new Intent(ViewAnimationDemo.this,
+                        ViewListViewImgActivity.class);
+                startActivity(startListViewItem);
                 break;
         }
     }

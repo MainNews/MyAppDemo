@@ -67,6 +67,8 @@
         <activity android:name=".mveiw.animation.ViewGridLayoutAnimationActivity"/>
         <!-- 该类用于制作ViewGroup在添加子控件时也带有动画效果（十二） -->
         <activity android:name=".mveiw.animation.draw.ViewAnimateLayoutChanges_LayoutTransition"/>
+        <!-- 该类用于制作ViewGroup在添加子控件时也带有动画效果（十二） -->
+        <activity android:name=".mveiw.animation.ViewListViewImgActivity"/>
 
         <!-- 自定义View绘图篇，展示进入哪一个View的入口 -->
         <activity android:name=".mveiw.draw.DrawViewStepActivity"/>
