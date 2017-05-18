@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.hank.myappdemo.mveiw.viewgroup.view.MyLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ff00ff">
+
+    <TextView
+        android:text="第一个控件"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="第二个控件"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:text="第三个控件"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</com.example.hank.myappdemo.mveiw.viewgroup.view.MyLinearLayout>

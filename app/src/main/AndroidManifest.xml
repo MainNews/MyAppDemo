@@ -87,6 +87,11 @@
         <!-- 自定义View绘图篇，canvas变换与操作 ,主要操作画布的裁剪与保存还有恢复效果-->
         <activity android:name=".mveiw.draw.activity.DrawCanvasGoToActivity"/>
 
+        <!-- 自定义ViewGroup控件篇 控件展示入口-->
+        <activity android:name=".mveiw.viewgroup.DrawGroupViewActivity"/>
+        <!-- 自定义ViewGroup控件篇，类似一个父控件-->
+        <activity android:name=".mveiw.viewgroup.activity.MyViewLinearLayout"/>
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

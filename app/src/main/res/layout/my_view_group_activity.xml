@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <Button
+        android:id="@+id/my_view_group_one_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第一个自定义控件，显示多个子控件"/>
+
+    <Button
+        android:id="@+id/my_view_group_two_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="第二个自定义控件"
+        />
+
+</LinearLayout>
