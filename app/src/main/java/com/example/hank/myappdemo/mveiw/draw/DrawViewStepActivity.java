@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoToActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawPathViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawRegionViewActivity;
@@ -41,6 +42,8 @@ public class DrawViewStepActivity extends AppCompatActivity {
     Button myViewDrawGoCanvasText;
     @Bind(R.id.my_view_draw_go_canvas_to_text)
     Button myViewDrawGoCanvasToText;
+    @Bind(R.id.my_view_draw_canvas_text_detailed)
+    Button myViewDrawCanvasTextDetailed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class DrawViewStepActivity extends AppCompatActivity {
     @OnClick({R.id.my_view_draw_paint_circle, R.id.my_view_draw_path_line,
             R.id.my_view_draw_path_text, R.id.my_view_draw_canvas_text,
             R.id.my_view_draw_regoin_text, R.id.my_view_draw_go_canvas_text,
-            R.id.my_view_draw_go_canvas_to_text})
+            R.id.my_view_draw_go_canvas_to_text,R.id.my_view_draw_canvas_text_detailed})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -111,6 +114,14 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startDrawCanvasTo = new Intent(DrawViewStepActivity.this,
                         DrawCanvasGoToActivity.class);
                 startActivity(startDrawCanvasTo);
+                break;
+            case R.id.my_view_draw_canvas_text_detailed:
+                /*
+                     canvas.drawText()的详解，主要是对该方法进入深入的了解
+                 */
+                Intent startCanvasDrawText = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasTextActivity.class);
+                startActivity(startCanvasDrawText);
                 break;
         }
     }
