@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
 
 /**
@@ -68,6 +69,92 @@ public class MyViewDrawCanvasTextDetailed extends View {
         //画bottom
         paintText.setColor(Color.YELLOW);
         canvas.drawLine(baseLineX,bottom,600,bottom,paintText);
+
+        /*
+            画出字符串占位的最大与最小矩形
+         */
+        int baseRectLineX = 0;
+        int baseRectLineY = 400;
+        String text = "为了梦想而前进！";
+        Paint paintRect = getPaint(Color.RED);
+        paintRect.setTextSize(60);
+        //画text所占的区域
+        Paint.FontMetricsInt fmRect = paintRect.getFontMetricsInt();
+        int rectTop = baseRectLineY + fmRect.top;
+        int rectBottom = baseRectLineY + fmRect.bottom;
+        int rectWidth = (int) paintRect.measureText(text);
+        Rect rect = new Rect(baseRectLineX,rectTop,baseRectLineX + rectWidth,rectBottom);
+
+        paintRect.setColor(Color.GREEN);
+        canvas.drawRect(rect,paintRect);
+
+        //画最小矩形
+        Rect minRect = new Rect();
+        paintRect.getTextBounds(text,0,text.length(),minRect);
+        minRect.top = baseRectLineY + minRect.top;
+        minRect.bottom = baseRectLineY + minRect.bottom;
+        paintRect.setColor(Color.YELLOW);
+        canvas.drawRect(minRect,paintRect);
+
+        //写文字
+        paintRect.setColor(Color.BLACK);
+        canvas.drawText(text,baseRectLineX,baseRectLineY,paintRect);
+
+        /*
+            给定左上顶点绘图
+               根据给定的顶点位置，得到基线，并画出文字
+         */
+        int appointTop = 500;
+        int appointBaseLineX = 0;
+
+        //设置Paint
+        Paint appointPaint = getPaint(Color.YELLOW);
+        appointPaint.setTextSize(60);
+        appointPaint.setTextAlign(Paint.Align.LEFT);
+
+        //画出Top线
+        canvas.drawLine(appointBaseLineX,appointTop,300,appointTop,appointPaint);
+
+        //计算BaseLine(基线)的位置
+        Paint.FontMetricsInt appointFM = appointPaint.getFontMetricsInt();
+        int appointBaseLineY = (int) (appointTop - appointFM.top);
+
+        //画基线
+        appointPaint.setColor(Color.RED);
+        canvas.drawLine(appointBaseLineX,appointBaseLineY,300,appointBaseLineY,appointPaint);
+
+        //写文字
+        appointPaint.setColor(Color.GREEN);
+        canvas.drawText(text,appointBaseLineX,appointBaseLineY,appointPaint);
+
+
+        //还可以根据中间位置来画出文字
+        /*
+    String text = "harvic\'s blog";
+    int center = 200;
+    int baseLineX = 0 ;
+
+    //设置paint
+    Paint paint = new Paint();
+    paint.setTextSize(120); //以px为单位
+    paint.setTextAlign(Paint.Align.LEFT);
+
+    //画center线
+    paint.setColor(Color.YELLOW);
+    canvas.drawLine(baseLineX, center, 3000, center, paint);
+
+    //计算出baseLine位置
+    Paint.FontMetricsInt fm = paint.getFontMetricsInt();
+    int baseLineY = center + (fm.bottom - fm.top)/2 - fm.bottom;
+
+    //画基线
+    paint.setColor(Color.RED);
+    canvas.drawLine(baseLineX, baseLineY, 3000, baseLineY, paint);
+
+    //写文字
+    paint.setColor(Color.GREEN);
+    canvas.drawText(text, baseLineX, baseLineY, paint);
+         */
     }
 
     /**
@@ -91,8 +178,8 @@ public class MyViewDrawCanvasTextDetailed extends View {
 /*
         总共有五种线：
                     baseline ：基线所在线
-                    ascent: 系统建议的，绘制单个字符时，字符应当的最高高度所在线
-                    descent:系统建议的，绘制单个字符时，字符应当的最低高度所在线
+                    ascent: 当前绘制的顶线
+                    descent:当前绘制的底线
                     top: 可绘制的最高高度所在线
                     bottom: 可绘制的最低高度所在线
 其中ascent,descent,top,bottom这些线的位置计算方法与意义分别如下：
