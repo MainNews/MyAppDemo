@@ -67,4 +67,12 @@
         android:padding="6dp"
         android:textSize="16sp"
         />
+    <Button
+        android:id="@+id/my_view_draw_canvas_bezier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/draw_bezier"
+        android:padding="6dp"
+        android:textSize="16sp"
+        />
 </LinearLayout>

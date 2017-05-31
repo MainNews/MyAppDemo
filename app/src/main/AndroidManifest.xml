@@ -88,6 +88,8 @@
         <activity android:name=".mveiw.draw.activity.DrawCanvasGoToActivity"/>
         <!--  该类主要是对于Canvas.drawText()绘制文字进行一个展示 -->
         <activity android:name=".mveiw.draw.activity.DrawCanvasTextActivity"/>
+        <!--  该类主要是对于Canvas.drawText()绘制文字进行一个展示 -->
+        <activity android:name=".mveiw.draw.activity.DrawBezierActivity"/>
 
         <!-- 自定义ViewGroup控件篇 控件展示入口-->
         <activity android:name=".mveiw.viewgroup.DrawGroupViewActivity"/>

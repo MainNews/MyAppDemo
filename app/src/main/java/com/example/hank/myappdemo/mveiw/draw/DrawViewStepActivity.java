@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawBezierActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoToActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextActivity;
@@ -44,6 +45,8 @@ public class DrawViewStepActivity extends AppCompatActivity {
     Button myViewDrawGoCanvasToText;
     @Bind(R.id.my_view_draw_canvas_text_detailed)
     Button myViewDrawCanvasTextDetailed;
+    @Bind(R.id.my_view_draw_canvas_bezier)
+    Button myViewDrawCanvasBezier;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +60,8 @@ public class DrawViewStepActivity extends AppCompatActivity {
     @OnClick({R.id.my_view_draw_paint_circle, R.id.my_view_draw_path_line,
             R.id.my_view_draw_path_text, R.id.my_view_draw_canvas_text,
             R.id.my_view_draw_regoin_text, R.id.my_view_draw_go_canvas_text,
-            R.id.my_view_draw_go_canvas_to_text,R.id.my_view_draw_canvas_text_detailed})
+            R.id.my_view_draw_go_canvas_to_text, R.id.my_view_draw_canvas_text_detailed,
+            R.id.my_view_draw_canvas_bezier})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -122,6 +126,14 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startCanvasDrawText = new Intent(DrawViewStepActivity.this,
                         DrawCanvasTextActivity.class);
                 startActivity(startCanvasDrawText);
+                break;
+            case R.id.my_view_draw_canvas_bezier:
+                /*
+                    绘制贝赛尔曲线
+                 */
+                Intent startCanvasBezier = new Intent(DrawViewStepActivity.this,
+                        DrawBezierActivity.class);
+                startActivity(startCanvasBezier);
                 break;
         }
     }
