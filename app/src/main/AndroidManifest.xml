@@ -88,8 +88,10 @@
         <activity android:name=".mveiw.draw.activity.DrawCanvasGoToActivity"/>
         <!--  该类主要是对于Canvas.drawText()绘制文字进行一个展示 -->
         <activity android:name=".mveiw.draw.activity.DrawCanvasTextActivity"/>
-        <!--  该类主要是对于Canvas.drawText()绘制文字进行一个展示 -->
+        <!--  该类主要是对于Canvas.quadto()绘制内贝赛尔曲线效果 -->
         <activity android:name=".mveiw.draw.activity.DrawBezierActivity"/>
+        <!--  该类主要是对于Canvas.rQuadTo()绘制水波纹效果 -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasWaveActivity"/>
 
         <!-- 自定义ViewGroup控件篇 控件展示入口-->
         <activity android:name=".mveiw.viewgroup.DrawGroupViewActivity"/>

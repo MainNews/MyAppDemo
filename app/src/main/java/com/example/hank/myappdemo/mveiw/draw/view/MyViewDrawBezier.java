@@ -16,6 +16,7 @@ import android.view.View;
 
 public class MyViewDrawBezier extends View {
     private Path mPath = new Path();
+    private float mPreX,mPreY;
     public MyViewDrawBezier(Context context) {
         super(context);
     }
@@ -29,9 +30,20 @@ public class MyViewDrawBezier extends View {
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 mPath.moveTo(event.getX(),event.getY());
+                mPreX = event.getX();
+                mPreY = event.getY();
                 return true;
             case MotionEvent.ACTION_MOVE:
-                mPath.lineTo(event.getX(),event.getY());
+                float endX = (mPreX+event.getX())/2;
+                float endY = (mPreY+event.getY())/2;
+
+                //mPath.lineTo(event.getX(),event.getY());
+                //使用贝赛尔曲线来画
+                mPath.quadTo(mPreX,mPreY,endX,endY);
+
+                mPreX = event.getX();
+                mPreY = event.getY();
+
                 postInvalidate();//重绘，该方法可以不在Ui线程中使用
                 break;
         }

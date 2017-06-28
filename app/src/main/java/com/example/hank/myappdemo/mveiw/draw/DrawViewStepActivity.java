@@ -13,6 +13,7 @@ import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoToActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextViewActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasWaveActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawPathViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawRegionViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawTextPathViewActivity;
@@ -47,6 +48,8 @@ public class DrawViewStepActivity extends AppCompatActivity {
     Button myViewDrawCanvasTextDetailed;
     @Bind(R.id.my_view_draw_canvas_bezier)
     Button myViewDrawCanvasBezier;
+    @Bind(R.id.my_view_draw_canvas_wave)
+    Button myViewDrawCanvasWave;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class DrawViewStepActivity extends AppCompatActivity {
             R.id.my_view_draw_path_text, R.id.my_view_draw_canvas_text,
             R.id.my_view_draw_regoin_text, R.id.my_view_draw_go_canvas_text,
             R.id.my_view_draw_go_canvas_to_text, R.id.my_view_draw_canvas_text_detailed,
-            R.id.my_view_draw_canvas_bezier})
+            R.id.my_view_draw_canvas_bezier,R.id.my_view_draw_canvas_wave})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -134,6 +137,14 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startCanvasBezier = new Intent(DrawViewStepActivity.this,
                         DrawBezierActivity.class);
                 startActivity(startCanvasBezier);
+                break;
+            case R.id.my_view_draw_canvas_wave:
+                /*
+                    波浪动画效果
+                 */
+                Intent startCanvasWave = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasWaveActivity.class);
+                startActivity(startCanvasWave);
                 break;
         }
     }
