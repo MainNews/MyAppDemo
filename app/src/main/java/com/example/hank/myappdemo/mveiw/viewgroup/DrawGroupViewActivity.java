@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hank.myappdemo.R;
+import com.example.hank.myappdemo.mveiw.viewgroup.activity.MyViewFlowLayoutActivity;
 import com.example.hank.myappdemo.mveiw.viewgroup.activity.MyViewLinearLayout;
 
 import butterknife.Bind;
@@ -40,7 +41,9 @@ public class DrawGroupViewActivity extends AppCompatActivity {
                 Intent startMyLinearLayout = new Intent(DrawGroupViewActivity.this, MyViewLinearLayout.class);
                 startActivity(startMyLinearLayout);
                 break;
-            case R.id.my_view_group_two_view:
+            case R.id.my_view_group_two_view://自定义ViewGroup，根据子控件的大小，将子控件放在相应的位置
+                Intent startMyFlowLayout = new Intent(DrawGroupViewActivity.this, MyViewFlowLayoutActivity.class);
+                startActivity(startMyFlowLayout);
                 break;
         }
     }

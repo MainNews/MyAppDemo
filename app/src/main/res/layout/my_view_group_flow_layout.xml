@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <com.example.hank.myappdemo.mveiw.viewgroup.view.MyFlowLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ff00ff"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="Welcome"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="IT工程师"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="我真是可以的"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="你觉得呢"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="不要只知道挣钱"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="努力ing"
+            android:textColor="#43BBE7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:background="#F0F0F0"
+            android:text="I thick i can"
+            android:textColor="#43BBE7" />
+
+    </com.example.hank.myappdemo.mveiw.viewgroup.view.MyFlowLayout>
+
+
+</LinearLayout>

@@ -97,6 +97,8 @@
         <activity android:name=".mveiw.viewgroup.DrawGroupViewActivity"/>
         <!-- 自定义ViewGroup控件篇，类似一个父控件-->
         <activity android:name=".mveiw.viewgroup.activity.MyViewLinearLayout"/>
+        <!-- 自定义ViewGroup控件篇:该界面用于展示，根据子控件的大小，来设置FlowLayout控件内部子控件的布局-->
+        <activity android:name=".mveiw.viewgroup.activity.MyViewFlowLayoutActivity"/>
 
         <service
             android:name="com.baidu.location.f"

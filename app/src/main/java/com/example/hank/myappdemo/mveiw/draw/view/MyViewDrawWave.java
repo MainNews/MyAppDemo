@@ -21,7 +21,7 @@ public class MyViewDrawWave extends View {
     private Path mPath;
     private int mItemWaveLength = 400;
     /** 保存当前动画波长值 */
-    private int dx;
+    private int dx = 0;
     public MyViewDrawWave(Context context) {
         super(context);
     }
@@ -40,13 +40,13 @@ public class MyViewDrawWave extends View {
         mPath.reset();
         int originY = 300;
         int halfWaveLen = mItemWaveLength/2;
-        mPath.moveTo(-mItemWaveLength,originY);
+        mPath.moveTo(-mItemWaveLength + dx,originY);
         /*
             画出适合屏幕的波纹
          */
         for (int i = -mItemWaveLength; i <= getWidth() + mItemWaveLength; i += mItemWaveLength){
-            mPath.rQuadTo(halfWaveLen/2,-50,halfWaveLen,0);
-            mPath.rQuadTo(halfWaveLen/2,50,halfWaveLen,0);
+            mPath.rQuadTo(halfWaveLen/2,-100,halfWaveLen,0);
+            mPath.rQuadTo(halfWaveLen/2,100,halfWaveLen,0);
         }
         /*
             将路径区域闭合
@@ -76,12 +76,13 @@ public class MyViewDrawWave extends View {
 
     }
 
+    private ValueAnimator animator;
     /**
      * 创建一个动画，使水波纹无限动起来
      */
     public void startAnim(){
-        final ValueAnimator animator = ValueAnimator.ofInt(0,mItemWaveLength);
-        animator.setDuration(2000);
+        animator = ValueAnimator.ofInt(0,mItemWaveLength);
+        animator.setDuration(1000);
         animator.setRepeatCount(ValueAnimator.INFINITE);//循环次数
         animator.setInterpolator(new LinearInterpolator());
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -92,5 +93,8 @@ public class MyViewDrawWave extends View {
             }
         });
         animator.start();
+    }
+    public void stopAnim(){
+        animator.cancel();
     }
 }
