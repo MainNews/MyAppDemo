@@ -92,6 +92,15 @@
         <activity android:name=".mveiw.draw.activity.DrawBezierActivity"/>
         <!--  该类主要是对于Canvas.rQuadTo()绘制水波纹效果 -->
         <activity android:name=".mveiw.draw.activity.DrawCanvasWaveActivity"/>
+        <!--  该界面展示Paint的函数方法显示效果 线段路径效果 -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasPaintFunctionActivity"/>
+        <!--  该界面展示Paint的函数方法显示效果 离散路径效果 -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasPaintFunctionTwoActivity"/>
+        <!--  该界面展示Paint的函数完成印章效果 ，即使用图形做为路径 -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasPaintFunctionThreeActivity"/>
+        <!--  该界面用于展示使用Paint函数合并特效路径 -->
+        <activity android:name=".mveiw.draw.activity.DrawCanvasPaintFunctionMergeActivity"/>
+
 
         <!-- 自定义ViewGroup控件篇 控件展示入口-->
         <activity android:name=".mveiw.viewgroup.DrawGroupViewActivity"/>

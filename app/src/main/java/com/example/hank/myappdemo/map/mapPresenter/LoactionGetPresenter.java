@@ -116,6 +116,7 @@ public class LoactionGetPresenter {
      * 清除引用
      */
     public void clear(){
+        locationView = null;
         mIMapClass.clear();
     }
 

@@ -25,4 +25,8 @@
     <string name="layout_animation_xml">使用LayoutAnimation展示子控件动画</string>
     <string name="draw_bezier">贝赛尔曲线(六)详解</string>
     <string name="wave">波浪动画效果</string>
+    <string name="paint_function">使用Paint函数 线段路径效果</string>
+    <string name="paint_function_two">使用Paint函数 离散路径效果</string>
+    <string name="paint_function_three">使用Paint函数，印章效果</string>
+    <string name="paint_merge">使用Paint函数，合并路径特效</string>
 </resources>

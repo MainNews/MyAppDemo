@@ -11,6 +11,10 @@ import com.example.hank.myappdemo.R;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawBezierActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasGoToActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasPaintFunctionActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasPaintFunctionMergeActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasPaintFunctionThreeActivity;
+import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasPaintFunctionTwoActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasTextViewActivity;
 import com.example.hank.myappdemo.mveiw.draw.activity.DrawCanvasWaveActivity;
@@ -50,6 +54,14 @@ public class DrawViewStepActivity extends AppCompatActivity {
     Button myViewDrawCanvasBezier;
     @Bind(R.id.my_view_draw_canvas_wave)
     Button myViewDrawCanvasWave;
+    @Bind(R.id.my_view_draw_canvas_paint_function)
+    Button myViewDrawCanvasPaintFunction;
+    @Bind(R.id.my_view_draw_canvas_paint_function_two)
+    Button myViewDrawCanvasPaintFunctionTwo;
+    @Bind(R.id.my_view_draw_canvas_paint_function_three)
+    Button myViewDrawCanvasPaintFunctionThree;
+    @Bind(R.id.my_view_draw_canvas_paint_function_merge)
+    Button myViewDrawCanvasPaintFunctionMerge;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,7 +76,9 @@ public class DrawViewStepActivity extends AppCompatActivity {
             R.id.my_view_draw_path_text, R.id.my_view_draw_canvas_text,
             R.id.my_view_draw_regoin_text, R.id.my_view_draw_go_canvas_text,
             R.id.my_view_draw_go_canvas_to_text, R.id.my_view_draw_canvas_text_detailed,
-            R.id.my_view_draw_canvas_bezier,R.id.my_view_draw_canvas_wave})
+            R.id.my_view_draw_canvas_bezier, R.id.my_view_draw_canvas_wave,
+            R.id.my_view_draw_canvas_paint_function, R.id.my_view_draw_canvas_paint_function_two,
+            R.id.my_view_draw_canvas_paint_function_three,R.id.my_view_draw_canvas_paint_function_merge})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.my_view_draw_paint_circle:
@@ -145,6 +159,42 @@ public class DrawViewStepActivity extends AppCompatActivity {
                 Intent startCanvasWave = new Intent(DrawViewStepActivity.this,
                         DrawCanvasWaveActivity.class);
                 startActivity(startCanvasWave);
+                break;
+            case R.id.my_view_draw_canvas_paint_function:
+                /*
+                    展示使用Paint对象中带有函数方法
+                    线段路径效果
+                 */
+                Intent startPaintFunction = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasPaintFunctionActivity.class);
+                startActivity(startPaintFunction);
+                break;
+            case R.id.my_view_draw_canvas_paint_function_two:
+                /*
+                    展示使用Paint对象中带有函数方法
+                    离散路径效果
+                 */
+                Intent startPaintFunctionTwo = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasPaintFunctionTwoActivity.class);
+                startActivity(startPaintFunctionTwo);
+                break;
+            case R.id.my_view_draw_canvas_paint_function_three:
+                /*
+                    展示使用Paint对象中带有函数方法
+                    印章效果
+                 */
+                Intent startPaintFunctionThree = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasPaintFunctionThreeActivity.class);
+                startActivity(startPaintFunctionThree);
+                break;
+            case R.id.my_view_draw_canvas_paint_function_merge:
+                  /*
+                    展示使用Paint对象中带有函数方法
+                    合并特效路径
+                 */
+                Intent startPaintFunctionMerge = new Intent(DrawViewStepActivity.this,
+                        DrawCanvasPaintFunctionMergeActivity.class);
+                startActivity(startPaintFunctionMerge);
                 break;
         }
     }
